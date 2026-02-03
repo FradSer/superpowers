@@ -1,84 +1,79 @@
 ---
 name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+argument-hint: (no arguments - provides process guidance)
+user-invocable: true
+version: 1.0.0
 ---
 
 # Executing Plans
 
-## Overview
+Execute written implementation plans in predictable batches with review checkpoints.
 
-Load plan, review critically, execute tasks in batches, report for review between batches.
+## Core Principles
 
-**Core principle:** Batch execution with checkpoints for architect review.
+- **Review before execution**: Understand the full plan and surface ambiguities first
+- **Batch verification**: Verify each batch before moving to the next
+- **Explicit blockers**: Stop and escalate when blockers invalidate assumptions
+- **Evidence-driven**: Capture verification outputs for each batch
 
-**Announce at start:** "I'm using the executing-plans skill to implement this plan."
+## When to Use
 
-## The Process
+- A plan already exists and should be executed as written
+- Work is risky enough to require staged checkpoints
+- Blocker handling must be explicit
 
-### Step 1: Load and Review Plan
-1. Read plan file
-2. Review critically - identify any questions or concerns about the plan
-3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create TodoWrite and proceed
+## Process Phases
 
-### Step 2: Execute Batch
-**Default: First 3 tasks**
+**Phase 1: Plan Review**
 
-For each task:
-1. Mark as in_progress
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed
+Read and validate the plan before starting execution.
 
-### Step 3: Report
-When batch complete:
-- Show what was implemented
-- Show verification output
-- Say: "Ready for feedback."
+- Read the full implementation plan document
+- Use `./references/blocker-and-escalation.md` to identify ambiguities
+- Surface unclear requirements or missing context immediately
+- Use `AskUserQuestion` tool to clarify ambiguities before proceeding
+- Do not silently reinterpret unclear requirements
 
-### Step 4: Continue
-Based on feedback:
-- Apply changes if needed
-- Execute next batch
-- Repeat until complete
+**Phase 2: Task Setup**
 
-### Step 5: Complete Development
+Prepare for batch execution.
 
-After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Convert plan items into a task tracker (use TaskCreate tool)
+- Identify natural batch boundaries based on dependencies
+- Verify test environment is ready
+- Ensure all prerequisites are satisfied
 
-## When to Stop and Ask for Help
+**Phase 3: Batch Execution**
 
-**STOP executing immediately when:**
-- Hit a blocker mid-batch (missing dependency, test fails, instruction unclear)
-- Plan has critical gaps preventing starting
-- You don't understand an instruction
-- Verification fails repeatedly
+Execute tasks in batches with verification checkpoints.
 
-**Ask for clarification rather than guessing.**
+- Execute the next batch exactly to scope using `./references/batch-execution-playbook.md`
+- Follow TDD workflow: write test → implement → verify
+- Run required checks and capture outputs (test results, lint, build)
+- Do not batch so large that feedback comes too late
+- Stop immediately if blockers invalidate assumptions
 
-## When to Revisit Earlier Steps
+**Phase 4: Verification & Feedback**
 
-**Return to Review (Step 1) when:**
-- Partner updates the plan based on your feedback
-- Fundamental approach needs rethinking
+Verify batch completion and gather feedback before continuing.
 
-**Don't force through blockers** - stop and ask.
+- Publish batch evidence (test outputs, verification results)
+- Use `AskUserQuestion` tool to confirm: "Batch N complete. Ready to proceed?"
+- Wait for user feedback before continuing
+- Update task tracker to mark completed tasks
+- Repeat Phase 3-4 until all tasks complete
 
-## Remember
-- Review plan critically first
-- Follow plan steps exactly
-- Don't skip verifications
-- Reference skills when plan says to
-- Between batches: just report and wait
-- Stop when blocked, don't guess
-- Never start implementation on main/master branch without explicit user consent
+## Exit Criteria
 
-## Integration
+- [ ] All plan tasks executed and verified
+- [ ] All verification commands passed with evidence captured
+- [ ] No unresolved blockers remaining
+- [ ] All batches reviewed and approved by user
+- [ ] Task tracker shows all tasks completed
+- [ ] Final verification run passes (all tests, lint, build)
 
-**Required workflow skills:**
-- **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
-- **superpowers:writing-plans** - Creates the plan this skill executes
-- **superpowers:finishing-a-development-branch** - Complete development after all tasks
+## References
+
+- `references/blocker-and-escalation.md` - Guide for identifying and handling blockers
+- `references/batch-execution-playbook.md` - Pattern for batch execution

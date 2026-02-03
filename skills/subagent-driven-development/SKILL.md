@@ -1,242 +1,111 @@
 ---
 name: subagent-driven-development
 description: Use when executing implementation plans with independent tasks in the current session
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with two-stage review after each: spec compliance review first, then code quality review.
+This skill provides guidance on executing implementation plans in-session using fresh subagents with two review gates per task.
 
-**Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
+## Core Concept
 
-## When to Use
+One task → one fresh implementer → spec gate → quality gate → verified completion. This pattern avoids context pollution and ensures consistent quality gates.
 
-```dot
-digraph when_to_use {
-    "Have implementation plan?" [shape=diamond];
-    "Tasks mostly independent?" [shape=diamond];
-    "Stay in this session?" [shape=diamond];
-    "subagent-driven-development" [shape=box];
-    "executing-plans" [shape=box];
-    "Manual execution or brainstorm first" [shape=box];
+## Pattern Overview
 
-    "Have implementation plan?" -> "Tasks mostly independent?" [label="yes"];
-    "Have implementation plan?" -> "Manual execution or brainstorm first" [label="no"];
-    "Tasks mostly independent?" -> "Stay in this session?" [label="yes"];
-    "Tasks mostly independent?" -> "Manual execution or brainstorm first" [label="no - tightly coupled"];
-    "Stay in this session?" -> "subagent-driven-development" [label="yes"];
-    "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
-}
-```
+**Fresh Implementer Per Task**: Each task gets a new subagent with clean context. Reusing stale implementer context leads to assumption carryover and scope creep.
 
-**vs. Executing Plans (parallel session):**
-- Same session (no context switch)
-- Fresh subagent per task (no context pollution)
-- Two-stage review after each task: spec compliance first, then code quality
-- Faster iteration (no human-in-loop between tasks)
+**Two Review Gates**: Spec-compliance review first, then code-quality review. Skipping either gate compromises quality.
 
-## The Process
+**Verified Completion**: Tasks are complete only after both gates pass and verification evidence is captured.
 
-```dot
-digraph process {
-    rankdir=TB;
+For trade-offs and why this pattern tends to outperform single-agent execution, see `references/advantages.md`.
 
-    subgraph cluster_per_task {
-        label="Per Task";
-        "Dispatch implementer subagent (./implementer-prompt.md)" [shape=box];
-        "Implementer subagent asks questions?" [shape=diamond];
-        "Answer questions, provide context" [shape=box];
-        "Implementer subagent implements, tests, commits, self-reviews" [shape=box];
-        "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" [shape=box];
-        "Spec reviewer subagent confirms code matches spec?" [shape=diamond];
-        "Implementer subagent fixes spec gaps" [shape=box];
-        "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [shape=box];
-        "Code quality reviewer subagent approves?" [shape=diamond];
-        "Implementer subagent fixes quality issues" [shape=box];
-        "Mark task complete in TodoWrite" [shape=box];
-    }
+## Task Decomposition
 
-    "Read plan, extract all tasks with full text, note context, create TodoWrite" [shape=box];
-    "More tasks remain?" [shape=diamond];
-    "Dispatch final code reviewer subagent for entire implementation" [shape=box];
-    "Use superpowers:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
+**One-Task Units**: Plans should be split into single-task units with explicit success criteria. Multi-task handoffs confuse scope.
 
-    "Read plan, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
-    "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
-    "Implementer subagent asks questions?" -> "Answer questions, provide context" [label="yes"];
-    "Answer questions, provide context" -> "Dispatch implementer subagent (./implementer-prompt.md)";
-    "Implementer subagent asks questions?" -> "Implementer subagent implements, tests, commits, self-reviews" [label="no"];
-    "Implementer subagent implements, tests, commits, self-reviews" -> "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)";
-    "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" -> "Spec reviewer subagent confirms code matches spec?";
-    "Spec reviewer subagent confirms code matches spec?" -> "Implementer subagent fixes spec gaps" [label="no"];
-    "Implementer subagent fixes spec gaps" -> "Dispatch spec reviewer subagent (./spec-reviewer-prompt.md)" [label="re-review"];
-    "Spec reviewer subagent confirms code matches spec?" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="yes"];
-    "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" -> "Code quality reviewer subagent approves?";
-    "Code quality reviewer subagent approves?" -> "Implementer subagent fixes quality issues" [label="no"];
-    "Implementer subagent fixes quality issues" -> "Dispatch code quality reviewer subagent (./code-quality-reviewer-prompt.md)" [label="re-review"];
-    "Code quality reviewer subagent approves?" -> "Mark task complete in TodoWrite" [label="yes"];
-    "Mark task complete in TodoWrite" -> "More tasks remain?";
-    "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
-    "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Use superpowers:finishing-a-development-branch";
-}
-```
+**Independence**: Tasks should be mostly independent to allow parallel execution. Tightly coupled tasks require sequential execution.
 
-## Prompt Templates
+**Clear Criteria**: Each task needs unambiguous success criteria. Ambiguous criteria lead to incomplete implementations.
 
-- `./implementer-prompt.md` - Dispatch implementer subagent
-- `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
-- `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
+See `references/task-decomposition.md` for decomposition strategies and success criteria templates.
 
-## Example Workflow
+## Implementer Handoff
 
-```
-You: I'm using Subagent-Driven Development to execute this plan.
+**Handoff Format**: Implementers receive task specification, relevant context, and success criteria. Missing context leads to assumptions.
 
-[Read plan file once: docs/plans/feature-plan.md]
-[Extract all 5 tasks with full text and context]
-[Create TodoWrite with all tasks]
+**Scope Clarity**: Handoff should clearly define what's in-scope and out-of-scope. Scope ambiguity causes scope creep.
 
-Task 1: Hook installation script
+**Examples**: Concrete examples in handoffs reduce misinterpretation. Abstract specifications lead to implementation variance.
 
-[Get Task 1 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
+See `references/implementer-handoff.md` for handoff templates and `references/examples.md` for concrete examples.
 
-Implementer: "Before I begin - should the hook be installed at user or system level?"
+## Spec Review Gate
 
-You: "User level (~/.config/superpowers/hooks/)"
+**First Gate Purpose**: Verify implementation matches specification before reviewing code quality. Spec mismatches invalidate quality review.
 
-Implementer: "Got it. Implementing now..."
-[Later] Implementer:
-  - Implemented install-hook command
-  - Added tests, 5/5 passing
-  - Self-review: Found I missed --force flag, added it
-  - Committed
+**Gap Closure**: All spec gaps must be closed before proceeding to quality review. Partial spec compliance compounds with quality issues.
 
-[Dispatch spec compliance reviewer]
-Spec reviewer: ✅ Spec compliant - all requirements met, nothing extra
+**Evidence**: Spec compliance requires evidence (test outputs, behavior verification). Claims need supporting proof.
 
-[Get git SHAs, dispatch code quality reviewer]
-Code reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.
+See `references/spec-review-gate.md` for spec review criteria and gap closure workflows.
 
-[Mark Task 1 complete]
+## Quality Review Gate
 
-Task 2: Recovery modes
+**Second Gate Purpose**: Verify code quality, maintainability, and best practices after spec compliance is confirmed.
 
-[Get Task 2 text and context (already extracted)]
-[Dispatch implementation subagent with full task text + context]
+**Finding Resolution**: Quality findings should be resolved before marking task complete. Technical debt accumulates from deferred quality issues.
 
-Implementer: [No questions, proceeds]
-Implementer:
-  - Added verify/repair modes
-  - 8/8 tests passing
-  - Self-review: All good
-  - Committed
+**Consistency**: Quality standards should be applied consistently across tasks. Inconsistent standards create technical debt variance.
 
-[Dispatch spec compliance reviewer]
-Spec reviewer: ❌ Issues:
-  - Missing: Progress reporting (spec says "report every 100 items")
-  - Extra: Added --json flag (not requested)
+See `references/quality-review-gate.md` for quality criteria and resolution workflows.
 
-[Implementer fixes issues]
-Implementer: Removed --json flag, added progress reporting
+## Completion Criteria
 
-[Spec reviewer reviews again]
-Spec reviewer: ✅ Spec compliant now
+**Both Gates Required**: Tasks cannot be marked complete until both spec and quality gates pass. Skipping gates under time pressure creates quality debt.
 
-[Dispatch code quality reviewer]
-Code reviewer: Strengths: Solid. Issues (Important): Magic number (100)
+**Verification Evidence**: Completion requires verification evidence (test runs, checks passing). No completion without proof.
 
-[Implementer fixes]
-Implementer: Extracted PROGRESS_INTERVAL constant
+**No Gate Skipping**: Time pressure does not justify skipping review gates. Skipped gates create rework later.
 
-[Code reviewer reviews again]
-Code reviewer: ✅ Approved
+See `references/completion-criteria.md`, `references/task-execution-loop.md`, and `references/review-and-remediation-loop.md` for detailed completion workflows.
 
-[Mark Task 2 complete]
+## Common Mistake Patterns
 
-...
+**Scope Creep**: Implementers expanding beyond task boundaries. Fixed by clear handoff scope definition.
 
-[After all tasks]
-[Dispatch final code-reviewer]
-Final reviewer: All requirements met, ready to merge
+**Hidden Dependencies**: Tasks assumed independent but actually coupled. Fixed by better task decomposition.
 
-Done!
-```
+**Skipped Verification**: Marking complete without running checks. Fixed by enforcing completion criteria.
 
-## Advantages
+See `references/common-mistake-patterns.md` and `references/common-mistake-remediation.md` for comprehensive mistake patterns and remediations.
 
-**vs. Manual execution:**
-- Subagents follow TDD naturally
-- Fresh context per task (no confusion)
-- Parallel-safe (subagents don't interfere)
-- Subagent can ask questions (before AND during work)
+## When This Pattern Applies
 
-**vs. Executing Plans:**
-- Same session (no handoff)
-- Continuous progress (no waiting)
-- Review checkpoints automatic
+**Appropriate Contexts**:
+- Tasks are decomposed and mostly independent
+- Fast iteration without context pollution is needed
+- Quality gates must be applied consistently
 
-**Efficiency gains:**
-- No file reading overhead (controller provides full text)
-- Controller curates exactly what context is needed
-- Subagent gets complete information upfront
-- Questions surfaced before work begins (not after)
+**Pattern Advantages**:
+- Fresh context per task avoids assumption carryover
+- Consistent review gates ensure quality
+- Parallel execution where tasks are independent
 
-**Quality gates:**
-- Self-review catches issues before handoff
-- Two-stage review: spec compliance, then code quality
-- Review loops ensure fixes actually work
-- Spec compliance prevents over/under-building
-- Code quality ensures implementation is well-built
+## References
 
-**Cost:**
-- More subagent invocations (implementer + 2 reviewers per task)
-- Controller does more prep work (extracting all tasks upfront)
-- Review loops add iterations
-- But catches issues early (cheaper than debugging later)
-
-## Red Flags
-
-**Never:**
-- Start implementation on main/master branch without explicit user consent
-- Skip reviews (spec compliance OR code quality)
-- Proceed with unfixed issues
-- Dispatch multiple implementation subagents in parallel (conflicts)
-- Make subagent read plan file (provide full text instead)
-- Skip scene-setting context (subagent needs to understand where task fits)
-- Ignore subagent questions (answer before letting them proceed)
-- Accept "close enough" on spec compliance (spec reviewer found issues = not done)
-- Skip review loops (reviewer found issues = implementer fixes = review again)
-- Let implementer self-review replace actual review (both are needed)
-- **Start code quality review before spec compliance is ✅** (wrong order)
-- Move to next task while either review has open issues
-
-**If subagent asks questions:**
-- Answer clearly and completely
-- Provide additional context if needed
-- Don't rush them into implementation
-
-**If reviewer finds issues:**
-- Implementer (same subagent) fixes them
-- Reviewer reviews again
-- Repeat until approved
-- Don't skip the re-review
-
-**If subagent fails task:**
-- Dispatch fix subagent with specific instructions
-- Don't try to fix manually (context pollution)
-
-## Integration
-
-**Required workflow skills:**
-- **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
-- **superpowers:writing-plans** - Creates the plan this skill executes
-- **superpowers:requesting-code-review** - Code review template for reviewer subagents
-- **superpowers:finishing-a-development-branch** - Complete development after all tasks
-
-**Subagents should use:**
-- **superpowers:test-driven-development** - Subagents follow TDD for each task
-
-**Alternative workflow:**
-- **superpowers:executing-plans** - Use for parallel session instead of same-session execution
+- `references/advantages.md` - Pattern trade-offs and benefits
+- `references/task-decomposition.md` - Decomposition strategies
+- `references/implementer-handoff.md` - Handoff format and templates
+- `references/examples.md` - Concrete handoff examples
+- `references/spec-review-gate.md` - Spec compliance review
+- `references/quality-review-gate.md` - Quality review criteria
+- `references/completion-criteria.md` - Task completion requirements
+- `references/task-execution-loop.md` - Execution workflow
+- `references/review-and-remediation-loop.md` - Review and fix workflow
+- `references/common-mistake-patterns.md` - Known failure patterns
+- `references/common-mistake-remediation.md` - Remediation strategies

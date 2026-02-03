@@ -1,105 +1,68 @@
 ---
 name: requesting-code-review
 description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
 # Requesting Code Review
 
-Dispatch superpowers:code-reviewer subagent to catch issues before they cascade.
+This skill provides guidance on requesting review with precise boundaries so defects are found quickly and accurately.
 
-**Core principle:** Review early, review often.
+## Core Concept
 
-## When to Request Review
+Clear scope, clear intent, clear commit range. Context-free "review everything" requests waste reviewer time and miss critical issues.
 
-**Mandatory:**
-- After each task in subagent-driven development
-- After completing major feature
-- Before merge to main
+## Review Request Structure
 
-**Optional but valuable:**
-- When stuck (fresh perspective)
-- Before refactoring (baseline check)
-- After fixing complex bug
+**Exact Review Range**: Review requests should specify exact commit boundaries (BASE_SHA → HEAD_SHA). Ambiguous ranges lead to incomplete reviews.
 
-## How to Request
+**Change Summary**: What changed and why. Reviewers need context about the purpose and expected behavior of changes.
 
-**1. Get git SHAs:**
-```bash
-BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
-HEAD_SHA=$(git rev-parse HEAD)
-```
+**Risk Areas**: Specific areas requiring careful review. Highlighting complexity or uncertainty focuses reviewer attention where it matters.
 
-**2. Dispatch code-reviewer subagent:**
+See `references/review-request-template.md` for complete request structure and examples.
 
-Use Task tool with superpowers:code-reviewer type, fill template at `code-reviewer.md`
+## When Code Review Applies
 
-**Placeholders:**
-- `{WHAT_WAS_IMPLEMENTED}` - What you just built
-- `{PLAN_OR_REQUIREMENTS}` - What it should do
-- `{BASE_SHA}` - Starting commit
-- `{HEAD_SHA}` - Ending commit
-- `{DESCRIPTION}` - Brief summary
+**Appropriate Contexts**:
+- Meaningful task or feature slice is complete
+- Approaching merge-sensitive milestones
+- Risk level requires formal reviewer sign-off
 
-**3. Act on feedback:**
-- Fix Critical issues immediately
-- Fix Important issues before proceeding
-- Note Minor issues for later
-- Push back if reviewer is wrong (with reasoning)
+**Review Scope Considerations**:
+- Avoid context-free requests lacking change summary
+- Include enough context for independent review
+- Highlight areas of uncertainty or complexity
 
-## Example
+## Finding Resolution
 
-```
-[Just completed Task 2: Add verification function]
+**Severity Classification**: Findings should be classified by severity (critical, major, minor, informational). Resolution priority follows severity.
 
-You: Let me request code review before proceeding.
+**Critical Findings**: Block merge until resolved. These represent bugs, security issues, or severe quality problems.
 
-BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
-HEAD_SHA=$(git rev-parse HEAD)
+**Non-Critical Findings**: Can be resolved post-merge or deferred with rationale. Balance quality with delivery urgency.
 
-[Dispatch superpowers:code-reviewer subagent]
-  WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md
-  BASE_SHA: a7981ec
-  HEAD_SHA: 3df7661
-  DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
+See `references/finding-resolution-flow.md` for classification criteria and resolution workflows.
 
-[Subagent returns]:
-  Strengths: Clean architecture, real tests
-  Issues:
-    Important: Missing progress indicators
-    Minor: Magic number (100) for reporting interval
-  Assessment: Ready to proceed
+## Resolution Evidence
 
-You: [Fix progress indicators]
-[Continue to Task 3]
-```
+**Concrete Resolution**: Each finding needs concrete resolution status (fixed, deferred, won't-fix) with supporting evidence.
 
-## Integration with Workflows
+**Verification**: Fixed findings should be verified with test outputs or code references. Claims need supporting evidence.
 
-**Subagent-Driven Development:**
-- Review after EACH task
-- Catch issues before they compound
-- Fix before moving to next task
+**Communication**: Resolution status should be communicated clearly to reviewers. Ambiguous responses lead to review cycles.
 
-**Executing Plans:**
-- Review after each batch (3 tasks)
-- Get feedback, apply, continue
+## Review as Quality Gate
 
-**Ad-Hoc Development:**
-- Review before merge
-- Review when stuck
+**Not Optional Noise**: Code review is a quality gate, not a bureaucratic checkbox. Meaningful review catches defects before production.
 
-## Red Flags
+**Merge Discipline**: Unresolved critical findings block merge. Shipping known critical issues creates technical debt.
 
-**Never:**
-- Skip review because "it's simple"
-- Ignore Critical issues
-- Proceed with unfixed Important issues
-- Argue with valid technical feedback
+**Reviewer Respect**: Reviewers invest time to improve quality. Treating review as optional disrespects that investment.
 
-**If reviewer wrong:**
-- Push back with technical reasoning
-- Show code/tests that prove it works
-- Request clarification
+## References
 
-See template at: requesting-code-review/code-reviewer.md
+- `references/review-request-template.md` - Request structure and examples
+- `references/finding-resolution-flow.md` - Severity classification and resolution workflows

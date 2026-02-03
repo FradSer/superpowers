@@ -1,139 +1,89 @@
 ---
 name: verification-before-completion
 description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
 # Verification Before Completion
 
-## Overview
+This skill provides guidance on proving claims with fresh command evidence before making any completion assertions.
 
-Claiming work is complete without verification is dishonesty, not efficiency.
+## Core Concept
 
-**Core principle:** Evidence before claims, always.
+Evidence before assertions. Before any completion claim, fresh commands must be run that directly prove the claim.
 
-**Violating the letter of this rule is violating the spirit of this rule.**
+## Claim-to-Command Mapping
 
-## The Iron Law
+**Every Claim Needs Proof**: Claims like "tests pass", "build succeeds", or "bug is fixed" each map to specific proving commands.
 
-```
-NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
-```
+**Direct Mapping**: The command should directly prove the claim. Indirect evidence (e.g., unit tests for integration claim) is insufficient.
 
-If you haven't run the verification command in this message, you cannot claim it passes.
+**Fresh Execution**: Stale command outputs don't prove current state. Evidence must be from the current execution environment.
 
-## The Gate Function
+See `references/claim-to-command-mapping.md` for comprehensive claim-to-command mappings.
 
-```
-BEFORE claiming any status or expressing satisfaction:
+## Verification Execution
 
-1. IDENTIFY: What command proves this claim?
-2. RUN: Execute the FULL command (fresh, complete)
-3. READ: Full output, check exit code, count failures
-4. VERIFY: Does output confirm the claim?
-   - If NO: State actual status with evidence
-   - If YES: State claim WITH evidence
-5. ONLY THEN: Make the claim
+**Run Full Command**: Verification commands should be run completely, not partially. Partial runs hide failures in unchecked portions.
 
-Skip any step = lying, not verifying
-```
+**Capture Exit Status**: Exit status (success/failure) matters more than stdout text. Zero exit indicates success; non-zero indicates failure.
 
-## Common Failures
+**Read Complete Output**: Output should be read completely to count real failures. Skimming misses important failure details.
 
-| Claim | Requires | Not Sufficient |
-|-------|----------|----------------|
-| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
-| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
-| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
-| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
-| Requirements met | Line-by-line checklist | Tests passing |
+## Evidence Reporting
 
-## Red Flags - STOP
+**Factual Status**: Report actual verification outcomes, not expectations or assumptions. "Should pass" is not evidence.
 
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without having run verification**
+**Command Evidence**: Include the actual command run and relevant output. Abstract summaries hide verification gaps.
 
-## Rationalization Prevention
+**Failure Counts**: When failures exist, report actual counts from output. "Some failures" is less actionable than "3 of 47 tests failed".
 
-| Excuse | Reality |
-|--------|---------|
-| "Should work now" | RUN the verification |
-| "I'm confident" | Confidence ≠ evidence |
-| "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "I'm tired" | Exhaustion ≠ excuse |
-| "Partial check is enough" | Partial proves nothing |
-| "Different words so rule doesn't apply" | Spirit over letter |
+See `references/evidence-reporting.md` for reporting templates and examples.
 
-## Key Patterns
+## Failure Communication
 
-**Tests:**
-```
-✅ [Run test command] [See: 34/34 pass] "All tests pass"
-❌ "Should pass now" / "Looks correct"
-```
+**State Failures Clearly**: When verification fails, state what failed and the actual error. Vague descriptions prevent debugging.
 
-**Regression tests (TDD Red-Green):**
-```
-✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
-❌ "I've written a regression test" (without red-green verification)
-```
+**Next Remediation Step**: Failed verification should be followed by next remediation action, not completion claims.
 
-**Build:**
-```
-✅ [Run build] [See: exit 0] "Build passes"
-❌ "Linter passed" (linter doesn't check compilation)
-```
+**No False Completion**: Partial verification success does not equal completion. All verification must pass.
 
-**Requirements:**
-```
-✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
-❌ "Tests pass, phase complete"
-```
+See `references/failure-communication.md` for failure reporting patterns.
 
-**Agent delegation:**
-```
-✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
-❌ Trust agent report
-```
+## When Verification Applies
 
-## Why This Matters
+**Before Completion Claims**:
+- Before saying tests/lint/build pass
+- Before commit/push/PR actions
+- Before reporting a fix as complete
 
-From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
-- Undefined functions shipped - would crash
-- Missing requirements shipped - incomplete features
-- Time wasted on false completion → redirect → rework
-- Violates: "Honesty is a core value. If you lie, you'll be replaced."
+**Verification Discipline**:
+- No "should pass" or "expected to work" language
+- No reliance on stale run results
+- No completion statements after partial verification
 
-## When To Apply
+## Common Anti-Patterns
 
-**ALWAYS before:**
-- ANY variation of success/completion claims
-- ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+**Stale Evidence**: Relying on previous test runs without fresh execution. State may have changed.
 
-**Rule applies to:**
-- Exact phrases
-- Paraphrases and synonyms
-- Implications of success
-- ANY communication suggesting completion/correctness
+**Assumed Success**: Claiming tests pass without running them. Assumptions are not evidence.
 
-## The Bottom Line
+**Partial Verification**: Running some checks but not all required ones. Partial verification misses failures.
 
-**No shortcuts for verification.**
+**Vague Claims**: "Everything looks good" without specific verification outputs. Vague claims hide verification gaps.
 
-Run the command. Read the output. THEN claim the result.
+## Verification Rigor
 
-This is non-negotiable.
+**Time Pressure**: Time pressure does not justify skipping verification. Unverified work creates rework later.
+
+**Simple Changes**: Even simple changes require verification. Simple changes often have unexpected impacts.
+
+**Previous Success**: Previous verification success doesn't prove current success. Code may have changed since last run.
+
+## References
+
+- `references/claim-to-command-mapping.md` - Mapping claims to proving commands
+- `references/evidence-reporting.md` - Evidence reporting templates
+- `references/failure-communication.md` - Failure reporting patterns

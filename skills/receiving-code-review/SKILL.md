@@ -1,213 +1,88 @@
 ---
 name: receiving-code-review
 description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
-# Code Review Reception
+# Receiving Code Review
 
-## Overview
+This skill provides guidance on processing review feedback with technical rigor before changing code.
 
-Code review requires technical evaluation, not emotional performance.
+## Core Concept
 
-**Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
+Understand and verify first; implement or push back with evidence. Performative agreement and blind implementation lead to poor outcomes.
 
-## The Response Pattern
+## Feedback Triage
 
-```
-WHEN receiving code review feedback:
+**Severity and Dependency**: Feedback should be triaged by severity (critical/major/minor) and dependency (blocking/independent). Resolution order follows this classification.
 
-1. READ: Complete feedback without reacting
-2. UNDERSTAND: Restate requirement in own words (or ask)
-3. VERIFY: Check against codebase reality
-4. EVALUATE: Technically sound for THIS codebase?
-5. RESPOND: Technical acknowledgment or reasoned pushback
-6. IMPLEMENT: One item at a time, test each
-```
+**Ambiguous Items**: Unclear feedback requires clarification before implementation. Guessing at reviewer intent leads to misdirected effort.
 
-## Forbidden Responses
+**Conflict Detection**: Feedback may conflict with architectural constraints or other comments. Conflicts need explicit resolution before implementation.
 
-**NEVER:**
-- "You're absolutely right!" (explicit CLAUDE.md violation)
-- "Great point!" / "Excellent feedback!" (performative)
-- "Let me implement that now" (before verification)
+See `references/feedback-triage.md` for classification criteria and triage workflows.
 
-**INSTEAD:**
-- Restate the technical requirement
-- Ask clarifying questions
-- Push back with technical reasoning if wrong
-- Just start working (actions > words)
+## Clarification Patterns
 
-## Handling Unclear Feedback
+**When Clarification Is Needed**:
+- Feedback is ambiguous about what to change
+- Suggested approach conflicts with constraints
+- Impact or scope is unclear
 
-```
-IF any item is unclear:
-  STOP - do not implement anything yet
-  ASK for clarification on unclear items
+**Effective Clarification**:
+- Reference specific code locations
+- Explain current implementation rationale
+- Ask targeted questions about suggestions
 
-WHY: Items may be related. Partial understanding = wrong implementation.
-```
+See `references/clarification-patterns.md` for clarification templates and examples.
 
-**Example:**
-```
-your human partner: "Fix 1-6"
-You understand 1,2,3,6. Unclear on 4,5.
+## Verification Before Implementation
 
-❌ WRONG: Implement 1,2,3,6 now, ask about 4,5 later
-✅ RIGHT: "I understand items 1,2,3,6. Need clarification on 4 and 5 before proceeding."
-```
+**Test Against Requirements**: Suggestions should be verified against code, tests, and requirements. Not all suggestions improve the codebase.
 
-## Source-Specific Handling
+**Architecture Consistency**: Changes should maintain architectural consistency. Localized improvements shouldn't violate system-wide patterns.
 
-### From your human partner
-- **Trusted** - implement after understanding
-- **Still ask** if scope unclear
-- **No performative agreement**
-- **Skip to action** or technical acknowledgment
+**Evidence-Based Decisions**: Accept/defer/pushback decisions need concrete rationale. Opinion-based responses lack credibility.
 
-### From External Reviewers
-```
-BEFORE implementing:
-  1. Check: Technically correct for THIS codebase?
-  2. Check: Breaks existing functionality?
-  3. Check: Reason for current implementation?
-  4. Check: Works on all platforms/versions?
-  5. Check: Does reviewer understand full context?
+## Implementation Loop
 
-IF suggestion seems wrong:
-  Push back with technical reasoning
+**Incremental Implementation**: Accepted feedback should be implemented incrementally with verification after each change. Batch implementation obscures which change caused failures.
 
-IF can't easily verify:
-  Say so: "I can't verify this without [X]. Should I [investigate/ask/proceed]?"
+**Verification After Changes**: Each implemented suggestion needs verification. Assumed correctness leads to introduced bugs.
 
-IF conflicts with your human partner's prior decisions:
-  Stop and discuss with your human partner first
-```
+**Evidence Capture**: Implementation results should be captured as evidence. "Fixed" claims need supporting test outputs.
 
-**your human partner's rule:** "External feedback - be skeptical, but check carefully"
+See `references/implementation-loop.md` for implementation patterns and verification strategies.
 
-## YAGNI Check for "Professional" Features
+## Pushback with Evidence
 
-```
-IF reviewer suggests "implementing properly":
-  grep codebase for actual usage
+**When Pushback Is Appropriate**:
+- Suggestion conflicts with architectural constraints
+- Change would introduce bugs or regressions
+- Cost outweighs benefit given current priorities
 
-  IF unused: "This endpoint isn't called. Remove it (YAGNI)?"
-  IF used: Then implement properly
-```
+**Effective Pushback**:
+- Concrete rationale with code references
+- Evidence from tests or existing patterns
+- Alternative approaches when available
 
-**your human partner's rule:** "You and reviewer both report to me. If we don't need this feature, don't add it."
+See `references/pushback-examples.md` for pushback templates and examples.
 
-## Implementation Order
+## Common Anti-Patterns
 
-```
-FOR multi-item feedback:
-  1. Clarify anything unclear FIRST
-  2. Then implement in this order:
-     - Blocking issues (breaks, security)
-     - Simple fixes (typos, imports)
-     - Complex fixes (refactoring, logic)
-  3. Test each fix individually
-  4. Verify no regressions
-```
+**Blanket Agreement**: "You're absolutely right, I'll fix all of these" - Performative agreement without understanding.
 
-## When To Push Back
+**Blind Implementation**: Implementing without verifying suggestions against requirements. Not all feedback improves code.
 
-Push back when:
-- Suggestion breaks existing functionality
-- Reviewer lacks full context
-- Violates YAGNI (unused feature)
-- Technically incorrect for this stack
-- Legacy/compatibility reasons exist
-- Conflicts with your human partner's architectural decisions
+**Closing Without Evidence**: Marking items resolved without verification outputs. Claims need supporting evidence.
 
-**How to push back:**
-- Use technical reasoning, not defensiveness
-- Ask specific questions
-- Reference working tests/code
-- Involve your human partner if architectural
+**Coupled Changes**: Implementing multiple coupled feedback items simultaneously. Obscures which change caused issues.
 
-**Signal if uncomfortable pushing back out loud:** "Strange things are afoot at the Circle K"
+## References
 
-## Acknowledging Correct Feedback
-
-When feedback IS correct:
-```
-✅ "Fixed. [Brief description of what changed]"
-✅ "Good catch - [specific issue]. Fixed in [location]."
-✅ [Just fix it and show in the code]
-
-❌ "You're absolutely right!"
-❌ "Great point!"
-❌ "Thanks for catching that!"
-❌ "Thanks for [anything]"
-❌ ANY gratitude expression
-```
-
-**Why no thanks:** Actions speak. Just fix it. The code itself shows you heard the feedback.
-
-**If you catch yourself about to write "Thanks":** DELETE IT. State the fix instead.
-
-## Gracefully Correcting Your Pushback
-
-If you pushed back and were wrong:
-```
-✅ "You were right - I checked [X] and it does [Y]. Implementing now."
-✅ "Verified this and you're correct. My initial understanding was wrong because [reason]. Fixing."
-
-❌ Long apology
-❌ Defending why you pushed back
-❌ Over-explaining
-```
-
-State the correction factually and move on.
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Performative agreement | State requirement or just act |
-| Blind implementation | Verify against codebase first |
-| Batch without testing | One at a time, test each |
-| Assuming reviewer is right | Check if breaks things |
-| Avoiding pushback | Technical correctness > comfort |
-| Partial implementation | Clarify all items first |
-| Can't verify, proceed anyway | State limitation, ask for direction |
-
-## Real Examples
-
-**Performative Agreement (Bad):**
-```
-Reviewer: "Remove legacy code"
-❌ "You're absolutely right! Let me remove that..."
-```
-
-**Technical Verification (Good):**
-```
-Reviewer: "Remove legacy code"
-✅ "Checking... build target is 10.15+, this API needs 13+. Need legacy for backward compat. Current impl has wrong bundle ID - fix it or drop pre-13 support?"
-```
-
-**YAGNI (Good):**
-```
-Reviewer: "Implement proper metrics tracking with database, date filters, CSV export"
-✅ "Grepped codebase - nothing calls this endpoint. Remove it (YAGNI)? Or is there usage I'm missing?"
-```
-
-**Unclear Item (Good):**
-```
-your human partner: "Fix items 1-6"
-You understand 1,2,3,6. Unclear on 4,5.
-✅ "Understand 1,2,3,6. Need clarification on 4 and 5 before implementing."
-```
-
-## GitHub Thread Replies
-
-When replying to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`), not as a top-level PR comment.
-
-## The Bottom Line
-
-**External feedback = suggestions to evaluate, not orders to follow.**
-
-Verify. Question. Then implement.
-
-No performative agreement. Technical rigor always.
+- `references/feedback-triage.md` - Severity classification and triage workflows
+- `references/clarification-patterns.md` - Clarification templates and examples
+- `references/implementation-loop.md` - Implementation patterns and verification
+- `references/pushback-examples.md` - Pushback templates and rationale examples

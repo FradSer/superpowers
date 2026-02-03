@@ -1,200 +1,73 @@
 ---
 name: finishing-a-development-branch
 description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
 # Finishing a Development Branch
 
-## Overview
+This skill provides guidance on closing out completed work by choosing and executing the correct integration path.
 
-Guide completion of development work by presenting clear options and handling chosen workflow.
+## Core Concept
 
-**Core principle:** Verify tests → Present options → Execute choice → Clean up.
+No branch operation should occur before fresh verification and explicit branch-target confirmation. Integration decisions require complete context about verification status and target branch.
 
-**Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
+## Verification Gate
 
-## The Process
+**Fresh Verification Required**: Before any integration decision, required checks must be run fresh. Stale verification results can hide failures.
 
-### Step 1: Verify Tests
+**Pass Confirmation**: All required verification must pass before proceeding. Failing checks block all integration options except discard.
 
-**Before presenting options, verify tests pass:**
+**Evidence Capture**: Verification outputs should be captured as evidence. Claims of passing tests require actual command outputs.
 
-```bash
-# Run project's test suite
-npm test / cargo test / pytest / go test ./...
-```
+See `references/verification-gate.md` for verification requirements and evidence standards.
 
-**If tests fail:**
-```
-Tests failing (<N> failures). Must fix before completing:
+## Integration Options
 
-[Show failures]
+**Merge Locally**: Direct merge to base branch in current workspace. Appropriate when work is reviewed and ready for immediate integration.
 
-Cannot proceed with merge/PR until tests pass.
-```
+**Push + PR**: Push to remote and create pull request. Appropriate when review is needed or team process requires PR workflow.
 
-Stop. Don't proceed to Step 2.
+**Keep As-Is**: Leave branch unmerged for future work. Appropriate when work is complete but integration timing is uncertain.
 
-**If tests pass:** Continue to Step 2.
+**Discard**: Delete branch and abandon work. Appropriate when work is obsolete or superseded by other changes.
 
-### Step 2: Determine Base Branch
+See `references/integration-options.md` for detailed option selection criteria and execution steps.
 
-```bash
-# Try common base branches
-git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
-```
+## Base Branch Confirmation
 
-Or ask: "This branch split from main - is that correct?"
+**Never Assume**: The target base branch must be explicitly confirmed. Assumptions about main/master/develop lead to wrong-branch merges.
 
-### Step 3: Present Options
+**User Confirmation**: Integration target should be confirmed with the user when ambiguous. Multiple active branches require explicit direction.
 
-Present exactly these 4 options:
+**Branch Verification**: Before merge, verify the base branch exists and is up-to-date. Outdated base branches cause integration conflicts.
 
-```
-Implementation complete. What would you like to do?
+## Cleanup and Recovery
 
-1. Merge back to <base-branch> locally
-2. Push and create a Pull Request
-3. Keep the branch as-is (I'll handle it later)
-4. Discard this work
+**Destructive Operation Safety**: Cleanup operations like branch deletion require explicit confirmation. Accidental deletions lose work.
 
-Which option?
-```
+**Rollback Capability**: Failed integrations need clear rollback procedures. Recovery steps should be documented before attempting risky operations.
 
-**Don't add explanation** - keep options concise.
+**State Reporting**: After integration, final git state should be reported clearly. Users need to understand current branch, remote status, and next steps.
 
-### Step 4: Execute Choice
+See `references/cleanup-and-recovery.md` for cleanup procedures and recovery strategies.
 
-#### Option 1: Merge Locally
+## When This Guidance Applies
 
-```bash
-# Switch to base branch
-git checkout <base-branch>
+**Appropriate Contexts**:
+- Implementation work is complete and verified
+- Integration decision point has been reached
+- Branch operation requires safety verification
 
-# Pull latest
-git pull
+**Critical Safety Points**:
+- Stop immediately on failing verification
+- Require explicit confirmation before destructive cleanup
+- Never assume the default base branch
 
-# Merge feature branch
-git merge <feature-branch>
+## References
 
-# Verify tests on merged result
-<test command>
-
-# If tests pass
-git branch -d <feature-branch>
-```
-
-Then: Cleanup worktree (Step 5)
-
-#### Option 2: Push and Create PR
-
-```bash
-# Push branch
-git push -u origin <feature-branch>
-
-# Create PR
-gh pr create --title "<title>" --body "$(cat <<'EOF'
-## Summary
-<2-3 bullets of what changed>
-
-## Test Plan
-- [ ] <verification steps>
-EOF
-)"
-```
-
-Then: Cleanup worktree (Step 5)
-
-#### Option 3: Keep As-Is
-
-Report: "Keeping branch <name>. Worktree preserved at <path>."
-
-**Don't cleanup worktree.**
-
-#### Option 4: Discard
-
-**Confirm first:**
-```
-This will permanently delete:
-- Branch <name>
-- All commits: <commit-list>
-- Worktree at <path>
-
-Type 'discard' to confirm.
-```
-
-Wait for exact confirmation.
-
-If confirmed:
-```bash
-git checkout <base-branch>
-git branch -D <feature-branch>
-```
-
-Then: Cleanup worktree (Step 5)
-
-### Step 5: Cleanup Worktree
-
-**For Options 1, 2, 4:**
-
-Check if in worktree:
-```bash
-git worktree list | grep $(git branch --show-current)
-```
-
-If yes:
-```bash
-git worktree remove <worktree-path>
-```
-
-**For Option 3:** Keep worktree.
-
-## Quick Reference
-
-| Option | Merge | Push | Keep Worktree | Cleanup Branch |
-|--------|-------|------|---------------|----------------|
-| 1. Merge locally | ✓ | - | - | ✓ |
-| 2. Create PR | - | ✓ | ✓ | - |
-| 3. Keep as-is | - | - | ✓ | - |
-| 4. Discard | - | - | - | ✓ (force) |
-
-## Common Mistakes
-
-**Skipping test verification**
-- **Problem:** Merge broken code, create failing PR
-- **Fix:** Always verify tests before offering options
-
-**Open-ended questions**
-- **Problem:** "What should I do next?" → ambiguous
-- **Fix:** Present exactly 4 structured options
-
-**Automatic worktree cleanup**
-- **Problem:** Remove worktree when might need it (Option 2, 3)
-- **Fix:** Only cleanup for Options 1 and 4
-
-**No confirmation for discard**
-- **Problem:** Accidentally delete work
-- **Fix:** Require typed "discard" confirmation
-
-## Red Flags
-
-**Never:**
-- Proceed with failing tests
-- Merge without verifying tests on result
-- Delete work without confirmation
-- Force-push without explicit request
-
-**Always:**
-- Verify tests before offering options
-- Present exactly 4 options
-- Get typed confirmation for Option 4
-- Clean up worktree for Options 1 & 4 only
-
-## Integration
-
-**Called by:**
-- **subagent-driven-development** (Step 7) - After all tasks complete
-- **executing-plans** (Step 5) - After all batches complete
-
-**Pairs with:**
-- **using-git-worktrees** - Cleans up worktree created by that skill
+- `references/verification-gate.md` - Verification requirements before integration
+- `references/integration-options.md` - Option selection criteria and execution
+- `references/cleanup-and-recovery.md` - Cleanup procedures and rollback strategies

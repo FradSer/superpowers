@@ -1,180 +1,77 @@
 ---
 name: dispatching-parallel-agents
 description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+argument-hint: (no arguments - provides reference guidance)
+user-invocable: false
+version: 1.0.0
 ---
 
 # Dispatching Parallel Agents
 
-## Overview
+This skill provides guidance on using parallel agents for truly independent work streams.
 
-When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
+## Core Concept
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
+Parallel agents should only be used when work streams have no shared state or sequential dependencies. Partition by domain first, then dispatch one focused agent per domain.
 
-## When to Use
+## Independence Assessment
 
-```dot
-digraph when_to_use {
-    "Multiple failures?" [shape=diamond];
-    "Are they independent?" [shape=diamond];
-    "Single agent investigates all" [shape=box];
-    "One agent per problem domain" [shape=box];
-    "Can they work in parallel?" [shape=diamond];
-    "Sequential agents" [shape=box];
-    "Parallel dispatch" [shape=box];
+**True Independence Indicators**:
+- Failures are independent by subsystem or root cause
+- Work can be integrated after isolated fixes without coordination
+- No shared state mutations between tasks
+- Domain boundaries are clear and non-overlapping
 
-    "Multiple failures?" -> "Are they independent?" [label="yes"];
-    "Are they independent?" -> "Single agent investigates all" [label="no - related"];
-    "Are they independent?" -> "Can they work in parallel?" [label="yes"];
-    "Can they work in parallel?" -> "Parallel dispatch" [label="yes"];
-    "Can they work in parallel?" -> "Sequential agents" [label="no - shared state"];
-}
-```
+**False Independence Warning Signs**:
+- Tightly coupled failures requiring coordinated fixes
+- Shared data structures or state requiring synchronization
+- Unclear domain boundaries leading to overlap
+- Integration conflicts likely after parallel work
 
-**Use when:**
-- 3+ test files failing with different root causes
-- Multiple subsystems broken independently
-- Each problem can be understood without context from others
-- No shared state between investigations
+See `references/independence-assessment.md` for detailed assessment criteria.
 
-**Don't use when:**
-- Failures are related (fix one might fix others)
-- Need to understand full system state
-- Agents would interfere with each other
+## Dispatch Patterns
 
-## The Pattern
+**Task Contract Definition**: Each agent needs clear scope, evidence requirements, and done conditions. Ambiguous contracts lead to integration conflicts.
 
-### 1. Identify Independent Domains
+**Domain Clustering**: Problems should be clustered into independent domains before dispatch. Each domain gets one focused agent to avoid ownership conflicts.
 
-Group failures by what's broken:
-- File A tests: Tool approval flow
-- File B tests: Batch completion behavior
-- File C tests: Abort functionality
+**Concurrent Execution**: Agents execute in parallel only after contracts are defined. Premature dispatch without clear boundaries wastes effort.
 
-Each domain is independent - fixing tool approval doesn't affect abort tests.
+See `references/dispatch-patterns.md` for contract templates and dispatch strategies.
 
-### 2. Create Focused Agent Tasks
+## Integration Considerations
 
-Each agent gets:
-- **Specific scope:** One test file or subsystem
-- **Clear goal:** Make these tests pass
-- **Constraints:** Don't change other code
-- **Expected output:** Summary of what you found and fixed
+**Output Consolidation**: After parallel execution, outputs must be consolidated and overlaps resolved. This requires reviewing all domain results together.
 
-### 3. Dispatch in Parallel
+**Integrated Verification**: Domain-only success is insufficient. End-to-end verification ensures the integrated system works correctly.
 
-```typescript
-// In Claude Code / AI environment
-Task("Fix agent-tool-abort.test.ts failures")
-Task("Fix batch-completion-behavior.test.ts failures")
-Task("Fix tool-approval-race-conditions.test.ts failures")
-// All three run concurrently
-```
+**Overlap Resolution**: When agents produce overlapping changes, conflicts must be resolved with full context of both domains.
 
-### 4. Review and Integrate
+See `references/integration-checks.md` for verification strategies and conflict resolution patterns.
 
-When agents return:
-- Read each summary
-- Verify fixes don't conflict
-- Run full test suite
-- Integrate all changes
+## When Parallel Dispatch Applies
 
-## Agent Prompt Structure
+**Appropriate Contexts**:
+- Multiple subsystem failures with clear isolation
+- Independent feature development in separate modules
+- Parallel bug fixes with no shared code paths
 
-Good agent prompts are:
-1. **Focused** - One clear problem domain
-2. **Self-contained** - All context needed to understand the problem
-3. **Specific about output** - What should the agent return?
+**Inappropriate Contexts**:
+- Coupled failures requiring coordinated investigation
+- Shared state requiring synchronization
+- Ambiguous boundaries leading to ownership conflicts
 
-```markdown
-Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts:
+## Benefits and Trade-offs
 
-1. "should abort tool with partial output capture" - expects 'interrupted at' in message
-2. "should handle mixed completed and aborted tools" - fast tool aborted instead of completed
-3. "should properly track pendingToolCount" - expects 3 results but gets 0
+**Lower Cycle Time**: Independent tasks complete faster when parallelized, reducing overall execution time.
 
-These are timing/race condition issues. Your task:
+**Coordination Overhead**: Parallel work requires upfront contract definition and post-execution integration, adding coordination cost.
 
-1. Read the test file and understand what each test verifies
-2. Identify root cause - timing issues or actual bugs?
-3. Fix by:
-   - Replacing arbitrary timeouts with event-based waiting
-   - Fixing bugs in abort implementation if found
-   - Adjusting test expectations if testing changed behavior
+**Risk of Rework**: Poor independence assessment leads to integration conflicts and wasted parallel effort.
 
-Do NOT just increase timeouts - find the real issue.
+## References
 
-Return: Summary of what you found and what you fixed.
-```
-
-## Common Mistakes
-
-**❌ Too broad:** "Fix all the tests" - agent gets lost
-**✅ Specific:** "Fix agent-tool-abort.test.ts" - focused scope
-
-**❌ No context:** "Fix the race condition" - agent doesn't know where
-**✅ Context:** Paste the error messages and test names
-
-**❌ No constraints:** Agent might refactor everything
-**✅ Constraints:** "Do NOT change production code" or "Fix tests only"
-
-**❌ Vague output:** "Fix it" - you don't know what changed
-**✅ Specific:** "Return summary of root cause and changes"
-
-## When NOT to Use
-
-**Related failures:** Fixing one might fix others - investigate together first
-**Need full context:** Understanding requires seeing entire system
-**Exploratory debugging:** You don't know what's broken yet
-**Shared state:** Agents would interfere (editing same files, using same resources)
-
-## Real Example from Session
-
-**Scenario:** 6 test failures across 3 files after major refactoring
-
-**Failures:**
-- agent-tool-abort.test.ts: 3 failures (timing issues)
-- batch-completion-behavior.test.ts: 2 failures (tools not executing)
-- tool-approval-race-conditions.test.ts: 1 failure (execution count = 0)
-
-**Decision:** Independent domains - abort logic separate from batch completion separate from race conditions
-
-**Dispatch:**
-```
-Agent 1 → Fix agent-tool-abort.test.ts
-Agent 2 → Fix batch-completion-behavior.test.ts
-Agent 3 → Fix tool-approval-race-conditions.test.ts
-```
-
-**Results:**
-- Agent 1: Replaced timeouts with event-based waiting
-- Agent 2: Fixed event structure bug (threadId in wrong place)
-- Agent 3: Added wait for async tool execution to complete
-
-**Integration:** All fixes independent, no conflicts, full suite green
-
-**Time saved:** 3 problems solved in parallel vs sequentially
-
-## Key Benefits
-
-1. **Parallelization** - Multiple investigations happen simultaneously
-2. **Focus** - Each agent has narrow scope, less context to track
-3. **Independence** - Agents don't interfere with each other
-4. **Speed** - 3 problems solved in time of 1
-
-## Verification
-
-After agents return:
-1. **Review each summary** - Understand what changed
-2. **Check for conflicts** - Did agents edit same code?
-3. **Run full suite** - Verify all fixes work together
-4. **Spot check** - Agents can make systematic errors
-
-## Real-World Impact
-
-From debugging session (2025-10-03):
-- 6 failures across 3 files
-- 3 agents dispatched in parallel
-- All investigations completed concurrently
-- All fixes integrated successfully
-- Zero conflicts between agent changes
+- `references/independence-assessment.md` - Criteria for assessing task independence
+- `references/dispatch-patterns.md` - Task contract templates and dispatch strategies
+- `references/integration-checks.md` - Integration verification and conflict resolution
