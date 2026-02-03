@@ -21,7 +21,7 @@ Turn rough intent into an implementation-ready design through structured dialogu
 
 **Phase 1: Discovery**
 - **Goal**: Remove ambiguity and identify constraints.
-- **Action**: Ask one focused question at a time.
+- **Action**: Use `AskUserQuestion` tool to ask one focused question at a time.
 - **Reference**: See `references/discovery-questions.md` for question patterns.
 
 **Phase 2: Option Analysis**
@@ -31,17 +31,17 @@ Turn rough intent into an implementation-ready design through structured dialogu
 
 **Phase 3: Design & Documentation**
 - **Goal**: Create actionable design artifact.
-- **Action**: Draft design incrementally, defined failure modes, and save to strict path.
+- **Action**: Draft design incrementally, define failure modes, and save to strict path.
 - **Output**: `docs/plans/YYYY-MM-DD-<topic>-design.md`.
 
 ## Interaction Guidelines
 
 | Type | Guideline |
 |------|-----------|
-| **Questions** | One per message. Prefer effective multiple-choice to open-ended. |
+| **Questions** | One per message. Use `AskUserQuestion` tool to prompt user. |
 | **Validation** | Check alignment after each 200-300 word design section. |
 | **Refinement** | Be flexible; return to Discovery if options don't fit constraints. |
-| **Transition** | Explicitly ask "Ready to set up for implementation?" before ending. |
+| **Transition** | Use `AskUserQuestion` tool to ask "Ready to set up for implementation?" before ending. |
 
 ## Exit Criteria
 
@@ -55,3 +55,4 @@ Turn rough intent into an implementation-ready design through structured dialogu
 
 - `references/discovery-questions.md` - Question bank for requirements gathering
 - `references/option-analysis.md` - Template for comparing architectural options
+- **Load `superpowers:elements-of-style` skill** using the Skill tool for writing guidelines.
