@@ -22,14 +22,47 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 3. If concerns: Raise them with your human partner before starting
 4. If no concerns: Create TodoWrite and proceed
 
-### Step 2: Execute Batch
-**Default: First 3 tasks**
+### Step 2: Configure Execution Mode
 
-For each task:
-1. Mark as in_progress
-2. Follow each step exactly (plan has bite-sized steps)
-3. Run verifications as specified
-4. Mark as completed
+**Option A: Serial Mode (Single Task/Subagent)**
+Use when: Tasks must be done in order or are highly coupled.
+1. Mark as in_progress.
+2. **REQUIRED:** Use `superpowers:behavior-driven-development` for implementation.
+3. Verify and mark as completed.
+
+**Option B: Parallel Mode (Agent Team)**
+Use when: Tasks are independent (e.g., "Create 5 separate handlers").
+
+**1. Create Team:**
+Use a prompt with **"agent team"** or **"teammates"** to initialize the team.
+
+*Pattern:*
+```
+Create an agent team to [Goal].
+```
+
+*Examples:*
+- "Create an agent team to refactor these modules in parallel."
+- "Create an agent team with 3 teammates: one for frontend, one for backend, one for testing."
+
+**2. Assign Tasks (Context Isolation):**
+Assign tasks with clear boundaries. Ensure teammates work on different files or logical units to prevent conflicts.
+
+*Pattern:*
+```
+Assign [Task ID] to [Teammate Name]. Context: [Specific File/Module]. Constraint: "Only edit [X], do not touch [Y]."
+```
+
+*Key Principle:* **Isolation**. Give each teammate only the context they need. Avoid overlapping file edits.
+
+**3. Wait:**
+```
+Wait for your teammates to complete their tasks before proceeding.
+```
+
+**4. Verify:**
+Run verification commands to confirm all teammates' work.
+
 
 ### Step 3: Report
 When batch complete:
