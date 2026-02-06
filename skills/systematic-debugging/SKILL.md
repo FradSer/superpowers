@@ -14,46 +14,17 @@ This skill provides guidance on debugging by proving root cause first, then appl
 
 Fixes should never be proposed before root-cause evidence is gathered and analyzed. Guessing at fixes wastes time and creates regressions.
 
-## Evidence-Driven Debugging
+## Workflow
 
-**Evidence Collection**: The foundation of systematic debugging is comprehensive evidence gathering. This includes error messages, stack traces, logs, environment details, and reliable reproduction steps.
+**Evidence Collection**: Gather error messages, stack traces, logs, and environment details. See `references/evidence-collection.md`.
 
-**Reproduction**: Reliable reproduction is essential for proving the bug exists and verifying fixes. The minimal failing condition should be isolated to understand what triggers the issue.
+**Reproduction**: Establish reliable reproduction with minimal failing condition. See `references/reproduction-techniques.md` and `references/isolation-strategies.md`.
 
-**Root Cause Analysis**: With reliable reproduction, the root cause can be identified through controlled experiments and hypothesis testing. The fix should directly target the verified trigger.
+**Fix Design**: Apply minimal correct fix targeting root cause. Verify with fresh execution evidence. See `references/fix-design-principles.md` and `references/regression-verification.md`.
 
-See `references/evidence-collection.md`, `references/reproduction-techniques.md`, and `references/isolation-strategies.md` for detailed techniques.
+## Critical Discipline
 
-## Fix Design Principles
-
-**Minimal Correct Fix**: The fix should be the smallest change that addresses the root cause. Over-engineering or defensive fixes often introduce new issues.
-
-**Evidence-Based Verification**: Success should never be declared without fresh execution evidence. The original failure must be resolved in the actual environment.
-
-**Regression Protection**: Adjacent behavior should be checked for regressions. High-impact areas require thorough regression verification.
-
-See `references/fix-design-principles.md` and `references/regression-verification.md` for detailed guidance.
-
-## When Systematic Debugging Applies
-
-**Appropriate Contexts**:
-- Any failing test, bug report, or unstable behavior
-- Cases where prior quick fixes failed or caused regressions
-- High time pressure situations where guessing risk increases
-
-**Common Anti-Patterns**:
-- Proposing fixes before isolation is complete
-- Declaring success without fresh execution outputs
-- Skipping regression checks for high-impact areas
-- Multiple simultaneous changes obscuring which fixed the issue
-
-See `references/debugging-anti-patterns.md` for comprehensive anti-pattern coverage.
-
-## Debugging Under Pressure
-
-Time pressure often leads to guessing and shortcut-taking. Systematic debugging is especially important when deadlines are tight, as failed guesses compound time loss.
-
-The discipline of evidence → reproduction → isolation → fix → verification actually saves time by avoiding failed attempts and regressions.
+Time pressure increases guessing risk. Systematic debugging saves time by avoiding failed attempts and regressions. See `references/debugging-anti-patterns.md` for common pitfalls.
 
 ## References
 
