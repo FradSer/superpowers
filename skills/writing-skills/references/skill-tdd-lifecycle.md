@@ -16,7 +16,7 @@ You write test cases (pressure scenarios with subagents), watch them fail (basel
 
 **Core principle:** If you didn't watch an agent fail without the skill, you don't know if the skill teaches the right thing.
 
-**REQUIRED BACKGROUND:** You MUST understand superpowers:test-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle.
+**REQUIRED BACKGROUND:** You MUST understand superpowers:behavior-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle.
 
 ## When to Use
 

@@ -1,0 +1,6 @@
+I have a design document entrypoint at docs/plans/2026-02-06-checkout-design/_index.md with behavior requirements in Given/When/Then style.
+
+Please implement this feature using behavior-driven-development:
+- derive scenarios first from the design intent
+- run red/green/refactor for each behavior
+- stop and escalate if repeated attempts show no progress

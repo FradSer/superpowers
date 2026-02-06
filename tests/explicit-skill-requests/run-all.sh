@@ -58,6 +58,17 @@ else
 fi
 echo ""
 
+# Test: use behavior-driven-development
+echo ">>> Test 5: use-behavior-driven-development"
+if "$SCRIPT_DIR/run-test.sh" "behavior-driven-development" "$PROMPTS_DIR/use-behavior-driven-development.txt"; then
+    PASSED=$((PASSED + 1))
+    RESULTS="$RESULTS\nPASS: use-behavior-driven-development"
+else
+    FAILED=$((FAILED + 1))
+    RESULTS="$RESULTS\nFAIL: use-behavior-driven-development"
+fi
+echo ""
+
 echo "=== Summary ==="
 echo -e "$RESULTS"
 echo ""

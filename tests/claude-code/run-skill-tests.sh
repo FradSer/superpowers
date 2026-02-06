@@ -57,6 +57,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --help, -h           Show this help"
             echo ""
             echo "Tests:"
+            echo "  test-behavior-driven-development.sh   Test BDD-guided TDD skill loading and workflow"
             echo "  test-subagent-driven-development.sh  Test skill loading and requirements"
             echo ""
             echo "Integration Tests (use --integration):"
@@ -73,6 +74,7 @@ done
 
 # List of skill tests to run (fast unit tests)
 tests=(
+    "test-behavior-driven-development.sh"
     "test-subagent-driven-development.sh"
 )
 
