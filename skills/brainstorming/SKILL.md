@@ -1,73 +1,56 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
-argument-hint: (no arguments - provides process guidance)
-user-invocable: true
-version: 1.0.0
+description: |
+  A structured 4-phase workflow to turn ideas into implementation-ready designs.
+  Phases:
+  1. Discovery: Explore codebase and clarify requirements (Primary Agent).
+  2. Option Analysis: Evaluate approaches and get user approval (Primary Agent).
+  3. Detailed Design: Create comprehensive design document (Planning Subagent).
+  4. Save & Setup: Commit design and prepare for implementation (Primary Agent).
+  MANDATORY: Use this skill before creating features or modifying complex behavior.
 ---
 
 # Brainstorming Ideas Into Designs
 
 Turn rough ideas into implementation-ready designs through structured collaborative dialogue.
 
-## Core Principles
+**Primary Agent**: Discovery and option analysis (Phase 1-2), then save and setup (Phase 4)
+**Planning Subagent**: Detailed design creation (Phase 3)
 
-- **Converge in order**: Clarify constraints → compare options → choose intentionally → document
-- **Incremental validation**: Present design in small sections (200-300 words) and validate each
-- **YAGNI ruthlessly**: Remove features not required by current constraints
-- **Context first**: Build context from existing code/docs before asking questions
+See `references/roles-and-principles.md` for complete role descriptions and core principles.
 
-## Process Phases
+## Phase 1: Discovery (Primary Agent)
 
-**Phase 1: Discovery**
+Explore codebase, review project context, identify gaps, and ask focused questions to understand requirements.
 
-Understand what you're building by exploring the current project state and clarifying requirements.
+See `references/phase1-discovery.md` for detailed exploration patterns and question guidelines.
 
-- Check out the current project state first (files, docs, recent commits)
-- Use `AskUserQuestion` tool to ask one focused question at a time
-- Prefer multiple choice questions when possible
-- Only one question per message - break complex topics into multiple questions
-- Focus on: purpose, constraints, success criteria
-- See `references/discovery-questions.md` for question patterns
+## Phase 2: Option Analysis (Primary Agent)
 
-**Phase 2: Option Analysis**
+Research existing patterns, propose 2-3 viable approaches, present conversationally with trade-offs, and get user approval.
 
-Evaluate different architectural approaches before committing to one.
+See `references/phase2-option-analysis.md` for option comparison patterns and presentation guidelines.
 
-- Propose 2-3 viable approaches with explicit trade-offs
-- Present options conversationally with your recommendation and reasoning
-- Lead with your recommended option and explain why
-- Use structure in `references/option-analysis.md`
+## Phase 3: Detailed Design (Delegate to Planning Subagent)
 
-**Phase 3: Design & Documentation**
+Primary Agent delegates to Planning Subagent with complete context. Planning Subagent explores codebase and creates comprehensive design document.
 
-Create the actionable design artifact through incremental validation.
+See `references/phase3-detailed-design.md` for delegation format and design structure requirements.
 
-- Present design in sections of 200-300 words
-- Ask after each section whether it looks right so far
-- Cover: architecture, components, data flow, error handling, testing
-- Be ready to go back and clarify if something doesn't make sense
-- Write validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- **Load `superpowers:elements-of-style` skill** using the Skill tool for writing guidelines
-- Commit the design document to git
+## Phase 4: Save & Setup (Primary Agent)
 
-**Phase 4: Transition to Implementation**
+Receive design content, save to `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`, commit to git, and optionally set up for implementation.
 
-Set up for implementation if continuing.
-
-- Use `AskUserQuestion` tool to ask: "Ready to set up for implementation?"
-- Use superpowers:using-git-worktrees to create isolated workspace
-- Use superpowers:writing-plans to create detailed implementation plan
+See `references/phase4-save-setup.md` for file naming, git commit patterns, and implementation setup.
 
 ## Exit Criteria
 
-- [ ] Design document created at `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- [ ] Requirements and constraints explicitly listed
-- [ ] At least 2 options compared with trade-offs (or clear "No Alternatives" rationale)
-- [ ] Failure modes and testing strategies defined
-- [ ] User approval received for the final design
+Check `references/exit-criteria.md` for complete checklists ensuring each phase is fully complete before proceeding.
 
 ## References
 
-- `references/discovery-questions.md` - Question bank for requirements gathering
-- `references/option-analysis.md` - Template for comparing architectural options
+- `references/phase1-discovery.md` - Detailed exploration patterns and question guidelines
+- `references/phase2-option-analysis.md` - Option comparison and presentation patterns
+- `references/phase3-detailed-design.md` - Delegation format and design structure
+- `references/phase4-save-setup.md` - File operations and implementation setup
+- `references/exit-criteria.md` - Complete checklists for all phases
