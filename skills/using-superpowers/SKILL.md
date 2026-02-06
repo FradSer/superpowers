@@ -14,47 +14,19 @@ This skill provides guidance on how to identify, select, and apply skills at con
 
 Skills should be loaded before taking any action when there's even a 1% chance they might apply to the task.
 
-## Skill Selection Principles
+## Skill Selection
 
-**Intent Matching**: Skills are triggered by user intent patterns, not exact keyword matches. The description field indicates when each skill applies.
+**Intent Matching**: Match by intent patterns, not keywords. Load before asking questions or exploring.
 
-**Pre-action Loading**: Skill selection happens before:
-- Asking clarifying questions
-- Running exploratory commands
-- Making assumptions about approach
-- Responding to the user
+**Priority**: Process skills before implementation skills.
 
-**Skill Priority**: When multiple skills could apply, process skills are loaded before implementation skills (e.g., brainstorming before domain-specific skills).
+**Red Flags**: "Just a simple question", "Need context first", "Let me explore first", "Doesn't need formal skill", "I remember this". See `references/skill-selection-heuristics.md`.
 
-## Selection Heuristics
+**Common Patterns**: Features → brainstorming. Implementation → behavior-driven-development. Bugs → systematic-debugging. Plans → writing-plans or executing-plans. Reviews → requesting/receiving-code-review.
 
-**Red Flags Indicating Rationalization**:
-- "This is just a simple question" - Questions are tasks; check for skills
-- "I need more context first" - Skill check comes before context gathering
-- "Let me explore the codebase first" - Skills tell you how to explore
-- "This doesn't need a formal skill" - If a skill exists, it should be used
-- "I remember this skill" - Skills evolve; load current version
+## Flow
 
-**Common Intent Patterns**:
-- Creating/building/adding features → brainstorming
-- Implementing functionality → test-driven-development
-- Bug fixes or failures → systematic-debugging
-- Multi-step tasks with plans → writing-plans or executing-plans
-- Code review requests → requesting-code-review
-- Receiving review feedback → receiving-code-review
-
-See `references/skill-selection-heuristics.md` for comprehensive matching patterns.
-
-## Invocation Flow
-
-The standard flow follows this pattern:
-1. Parse user request intent
-2. Identify plausible skill matches
-3. Load relevant skills (using Skill tool)
-4. Announce selected skill(s) briefly
-5. Execute under skill constraints
-
-See `references/invocation-flow-and-red-flags.md` for detailed flow patterns and anti-patterns.
+Parse intent → Identify matches → Load skills → Announce → Execute. See `references/invocation-flow-and-red-flags.md`.
 
 ## References
 

@@ -9,6 +9,7 @@ This file preserves the previously detailed SKILL.md guidance for deeper referen
 ## Overview
 
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+For unit-test tasks, explicitly require test doubles to isolate external dependencies (databases, networks, third-party services).
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
