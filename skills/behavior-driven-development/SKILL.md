@@ -8,11 +8,11 @@ version: 2.1.0
 
 # Behavior-Driven Development
 
-This skill runs BDD-guided TDD in the active agent conversation: parse behavior scenarios from design docs, write tests, execute loops, and align implementation without process-artifact files.
+This skill runs BDD in the active agent conversation: parse behavior scenarios from design docs, write tests, execute loops, and align implementation without process-artifact files.
 
 ## Core Concept
 
-Behavior scenarios are executable specifications. TDD implements them through RED -> GREEN -> REFACTOR.
+Behavior scenarios are executable specifications. BDD implements them through RED -> GREEN -> REFACTOR.
 
 ## Required Inputs
 
@@ -73,7 +73,7 @@ Do not generate `.feature`, `summary.json`, `events.jsonl`, or `manual_decision/
 ## Agent Team Compatibility
 
 This skill is designed to be run by an **Implementer** teammate within an Agent Team (or by the Team Lead). 
-See Skill tool load `superpowers:agent-team-driven-development` skill for orchestrating the team execution.
+Load the `superpowers:agent-team-driven-development` skill for orchestrating team execution.
 
 ## Legacy Compatibility
 
