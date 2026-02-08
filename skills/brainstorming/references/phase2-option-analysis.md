@@ -78,6 +78,12 @@ controllers call service classes that handle business logic."
 
 Use `AskUserQuestion` to confirm the chosen approach:
 
+**CRITICAL: One Question at a Time**:
+
+- **ALWAYS call `AskUserQuestion` with exactly 1 question** (never use 2-4 questions)
+- If you need to clarify multiple aspects, ask them sequentially
+- Wait for each answer before proceeding to the next question
+
 **Simple approval**:
 
 ```
@@ -97,9 +103,10 @@ approach is simpler but less robust. Which trade-off matters more for this featu
 
 ## Output for Phase 3
 
-Provide Planning Subagent with:
+Proceed to design creation with:
 
 - User-approved approach with clear rationale
 - Alternative approaches considered (brief summary)
 - Relevant files and patterns to reference in design
 - Trade-offs and constraints to keep in mind
+- Complete context for creating comprehensive design document

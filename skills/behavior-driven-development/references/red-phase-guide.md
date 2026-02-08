@@ -1,10 +1,10 @@
-# Test-Driven Development Details (1/6)
+# Behavior-Driven Development Details (1/6)
 
 # Detailed Guidance
 
 This file preserves the previously detailed SKILL.md guidance for deeper reference.
 
-# Test-Driven Development (TDD)
+# Behavior-Driven Development (BDD)
 
 ## Overview
 
@@ -27,7 +27,7 @@ Write the test first. Watch it fail. Write minimal code to pass.
 - Generated code
 - Configuration files
 
-Thinking "skip TDD just this once"? Stop. That's rationalization.
+Thinking "skip BDD just this once"? Stop. That's rationalization.
 
 ## The Iron Law
 

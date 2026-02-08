@@ -8,7 +8,7 @@ This file preserves the previously detailed SKILL.md guidance for deeper referen
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. BDD. Frequent commits.
 For unit-test tasks, explicitly require test doubles to isolate external dependencies (databases, networks, third-party services).
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
@@ -21,12 +21,12 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 ## Bite-Sized Task Granularity
 
-**Each step is one action (2-5 minutes):**
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+**Each task corresponds to implementing one BDD Scenario:**
+- Step 1: Ensure Scenario exists in `bdd-specs.md`
+- Step 2: Implement the Test Case (translating Given/When/Then to code)
+- Step 3: Run Test (`RED`)
+- Step 4: Implement Logic (`GREEN`)
+- Step 5: Verify (Run tests) & Refactor
 
 ## Plan Document Header
 
@@ -35,7 +35,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Claude:** REQUIRED SUB-SKILL: Use Skill tool load `superpowers:executing-plans` skill to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -49,29 +49,39 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ## Task Structure
 
 ```markdown
-### Task N: [Component Name]
+### Task N: [Scenario Name]
 
 **Files:**
 - Create: `exact/path/to/file.py`
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
+- Spec: `docs/plans/.../bdd-specs.md` (Scenario: [Scenario Name])
 
-**Step 1: Write the failing test**
+**Step 1: Verify Scenario**
+- Ensure `[Scenario Name]` exists in `bdd-specs.md`.
 
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
-```
+**Step 2: Implement Test Case**
 
-**Step 2: Run test to verify it fails**
+- File: `tests/exact/path/to/test.py`
+- Action: Create/Update test function `test_scenario_name`
+- Logic:
+  - **Given**: Initialize [State/Context]
+  - **When**: Trigger [Action]
+  - **Then**: Assert [Expected Result]
 
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
+**Step 3: Run test (Red)**
 
-**Step 3: Write minimal implementation**
+Run: `pytest tests/path/test.py::test_scenario_name -v`
+Expected: FAIL
 
-```python
-def function(input):
-    return expected
+**Step 4: Implement Logic (Green)**
+
+- File: `exact/path/to/file.py`
+- Action: Implement method/function to satisfy the test
+- Details: [Brief description of logic if needed]
+
+**Step 5: Verify & Refactor**
+
+Run: `pytest tests/path/test.py::test_scenario_name -v`
+Expected: PASS
 ```

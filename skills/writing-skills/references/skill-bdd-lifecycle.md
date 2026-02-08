@@ -8,15 +8,15 @@ This file preserves the previously detailed SKILL.md guidance for deeper referen
 
 ## Overview
 
-**Writing skills IS Test-Driven Development applied to process documentation.**
+**Writing skills IS Behavior-Driven Development (BDD) strictly driving Test-Driven Development (TDD) as applied to process documentation.**
 
 **Personal skills live in agent-specific directories (`~/.claude/skills` for Claude Code, `~/.codex/skills` for Codex)**
 
-You write test cases (pressure scenarios with subagents), watch them fail (baseline behavior), write the skill (documentation), watch tests pass (agents comply), and refactor (close loopholes).
+You write behavior scenarios (pressure scenarios with subagents), watch them fail (baseline behavior), write the skill (documentation), watch scenarios pass (agents comply), and refactor (close loopholes).
 
 **Core principle:** If you didn't watch an agent fail without the skill, you don't know if the skill teaches the right thing.
 
-**REQUIRED BACKGROUND:** You MUST understand superpowers:behavior-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle.
+**REQUIRED BACKGROUND:** You MUST understand superpowers:behavior-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle within a strictly BDD-driven TDD context.
 
 ## When to Use
 
@@ -47,6 +47,6 @@ You write test cases (pressure scenarios with subagents), watch them fail (basel
 - Keep untested changes as "reference"
 - Move to next skill before current verified
 
-**The Iron Law:** NO SKILL WITHOUT A FAILING TEST FIRST
+**The Iron Law:** NO SKILL WITHOUT A FAILING SCENARIO FIRST
 
 ## References

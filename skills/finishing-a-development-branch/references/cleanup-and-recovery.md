@@ -15,8 +15,8 @@
 ## Integration
 
 **Called by:**
-- **subagent-driven-development** (Step 7) - After all tasks complete
-- **executing-plans** (Step 5) - After all batches complete
+- **Skill tool load superpowers:agent-team-driven-development skill** (Step 7) - After all tasks complete
+- **Skill tool load superpowers:executing-plans skill** (Step 5) - After all batches complete
 
 **Pairs with:**
 - **using-git-worktrees** - Cleans up worktree created by that skill

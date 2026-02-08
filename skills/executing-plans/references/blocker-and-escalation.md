@@ -13,5 +13,5 @@
 ## Integration
 
 **Required workflow skills:**
-- **superpowers:writing-plans** - Creates the plan this skill executes
-- **superpowers:finishing-a-development-branch** - Complete development after all tasks
+- **Superpowers: Writing Plans** - Use Skill tool load `superpowers:writing-plans` skill to create the plan this skill executes
+- **Superpowers: Finishing a Development Branch** - Use Skill tool load `superpowers:finishing-a-development-branch` skill to complete development after all tasks

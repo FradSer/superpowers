@@ -38,17 +38,19 @@ Based on your exploration, identify what's unclear:
 
 Use `AskUserQuestion` tool strategically:
 
+**CRITICAL: One Question at a Time**:
+
+- **ALWAYS call `AskUserQuestion` with exactly 1 question** (never use 2-4 questions)
+- Never bundle multiple questions together in a single call
+- Break complex topics into sequential questions
+- Wait for the answer before asking the next question
+- This creates a natural conversation flow and prevents overwhelming the user
+
 **Question Style Preferences**:
 
 - **Prefer multiple choice** with 2-4 options when possible
 - Use open-ended only when exploring truly unknown territory
 - Frame questions based on what you learned from codebase exploration
-
-**One Question Per Message**:
-
-- Never bundle multiple questions together
-- Break complex topics into sequential questions
-- Wait for answer before asking the next question
 
 **Question Categories**:
 
@@ -86,9 +88,10 @@ Synthesize exploration and user answers:
 
 ## Output for Phase 2
 
-Provide clear understanding including:
+Clear understanding of requirements including:
 
 - Explicit requirements from user answers
 - Constraints discovered from codebase and user
 - Success criteria and non-functional requirements
 - Relevant existing patterns and files to reference
+- Foundation for analyzing implementation options

@@ -22,10 +22,10 @@ When the description was changed to just "Use when executing implementation plan
 # ❌ BAD: Summarizes workflow - Claude may follow this instead of reading skill
 description: Use when executing plans - dispatches subagent per task with code review between tasks
 
-# ❌ BAD: Too much process detail
-description: Use for TDD - write test first, watch it fail, write minimal code, refactor
+# BAD: Too much process detail
+description: Use for BDD - report scenario failure first, write minimal code, refactor
 
-# ✅ GOOD: Just triggering conditions, no workflow summary
+# GOOD: Just triggering conditions, no workflow summary
 description: Use when executing implementation plans with independent tasks in the current session
 
 # ✅ GOOD: Triggering conditions only

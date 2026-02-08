@@ -5,8 +5,8 @@
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
 
 **Related skills:**
-- **superpowers:behavior-driven-development** - For creating failing test case (Phase 4, Step 1)
-- **superpowers:verification-before-completion** - Verify fix worked before claiming success
+- **Behavior Driven Development** - Use Skill tool load `superpowers:behavior-driven-development` skill for creating failing test case (Phase 4, Step 1)
+- **Verification Before Completion** - Use Skill tool load `superpowers:verification-before-completion` skill to Verify fix worked before claiming success
 
 ## Real-World Impact
 

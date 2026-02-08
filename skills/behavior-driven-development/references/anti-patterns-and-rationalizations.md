@@ -1,4 +1,4 @@
-# Test-Driven Development Details (5/6)
+# Behavior-Driven Development Details (5/6)
 
 - Code before test
 - Test after implementation
@@ -11,10 +11,10 @@
 - "It's about spirit not ritual"
 - "Keep as reference" or "adapt existing code"
 - "Already spent X hours, deleting is wasteful"
-- "TDD is dogmatic, I'm being pragmatic"
+- "BDD is dogmatic, I'm being pragmatic"
 - "This is different because..."
 
-**All of these mean: Delete code. Start over with TDD.**
+**All of these mean: Delete code. Start over with BDD.**
 
 ## Example: Bug Fix
 
@@ -66,6 +66,6 @@ Before marking work complete:
 - [ ] Tests use real code (mocks only if unavoidable)
 - [ ] Edge cases and errors covered
 
-Can't check all boxes? You skipped TDD. Start over.
+Can't check all boxes? You skipped BDD. Start over.
 
 ## When Stuck

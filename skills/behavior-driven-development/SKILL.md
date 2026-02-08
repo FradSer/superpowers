@@ -17,15 +17,25 @@ Behavior scenarios are executable specifications. TDD implements them through RE
 ## Required Inputs
 
 - Design entrypoint: `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`
-- Scenario source: `bdd-scenarios.md` referenced by `_index.md`
+- Scenario source: `bdd-specs.md` (preferred, standard Gherkin) or `bdd-scenarios.md` (legacy) linked from `_index.md`
 
-Scenario format in `bdd-scenarios.md`:
+Scenario format:
 
-- `### SCN-001 <title>`
-- `Given: ...`
-- `When: ...`
-- `Then: ...`
-- optional `Tags: smoke, api, web`
+1. **Standard Gherkin** (in `bdd-specs.md`):
+   ```gherkin
+   Feature: User Login
+     Scenario: Successful login
+       Given user exists...
+       When user logs in...
+       Then user is redirected...
+   ```
+
+2. **Legacy Format** (in `bdd-scenarios.md`):
+   - `### SCN-001 <title>`
+   - `Given: ...`
+   - `When: ...`
+   - `Then: ...`
+   - optional `Tags: smoke, api, web`
 
 ## Conversation-Flow Loop (In-Memory)
 
@@ -60,9 +70,14 @@ Do not generate `.feature`, `summary.json`, `events.jsonl`, or `manual_decision/
 - Unit tests must isolate external dependencies (DB/network/third-party APIs) via appropriate test doubles.
 - BDD is behavior specification, not full-mock acceptance theater.
 
+## Agent Team Compatibility
+
+This skill is designed to be run by an **Implementer** teammate within an Agent Team (or by the Team Lead). 
+See Skill tool load `superpowers:agent-team-driven-development` skill for orchestrating the team execution.
+
 ## Legacy Compatibility
 
-Legacy file-based controller scripts exist for external harness compatibility (`scripts/orchestrate.sh`, `scripts/tdd_loop_controller.py`), but they are not the default execution path for this skill.
+Legacy file-based controller scripts exist for external harness compatibility (`scripts/orchestrate.sh`, `scripts/tdd_loop_controller.py`), but the preferred modern workflow is via Agent Teams.
 
 ## References
 

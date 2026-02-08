@@ -16,7 +16,7 @@ Baseline failure → minimal guidance → verification → loophole hardening. S
 
 ## Workflow
 
-**TDD Lifecycle**: Record baseline failures, write minimal guidance, verify improvements, harden against loopholes. See `references/tdd-mapping.md` and `references/skill-tdd-lifecycle.md`.
+**Behavior-Driven Lifecycle**: Record baseline failures, write minimal guidance, verify improvements, harden against loopholes. See `references/bdd-mapping.md` and `references/skill-bdd-lifecycle.md`.
 
 **Structure**: Frontmatter, core concept, sections, references. Stay ~500 tokens. See `references/skill-structure.md`, `references/cso-token-budget-heuristics.md`, `references/cso-description-principles.md`, `references/cso-keyword-strategy.md`.
 
@@ -28,8 +28,8 @@ Baseline failure → minimal guidance → verification → loophole hardening. S
 
 ## References
 
-- `references/tdd-mapping.md` - TDD concepts mapped to skill authoring
-- `references/skill-tdd-lifecycle.md` - Lifecycle phases
+- `references/bdd-mapping.md` - BDD concepts mapped to skill authoring
+- `references/skill-bdd-lifecycle.md` - Lifecycle phases
 - `references/skill-structure.md` - Structure templates
 - `references/cso-description-principles.md` - Discoverability principles
 - `references/cso-keyword-strategy.md` - Keyword strategy

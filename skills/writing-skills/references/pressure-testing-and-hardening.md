@@ -1,7 +1,7 @@
 # Writing Skills Details (2/2)
 
 See `references/` directory for:
-- `tdd-mapping.md` - Complete TDD-to-skills mapping and Iron Law
+- `bdd-mapping.md` - Complete BDD-to-skills mapping and Iron Law
 - `skill-structure.md` - SKILL.md format, frontmatter, directory structure
 - `claude-search-optimization.md` - Description field rules, keyword coverage, token efficiency
 - `testing-methodology.md` - Testing different skill types, pressure scenarios

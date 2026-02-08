@@ -1,4 +1,4 @@
-# Test-Driven Development Details (4/6)
+# Behavior-Driven Development Details (4/6)
 
 No. Tests-after answer "What does this do?" Tests-first answer "What should this do?"
 
@@ -6,7 +6,7 @@ Tests-after are biased by your implementation. You test what you built, not what
 
 Tests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).
 
-30 minutes of tests after ≠ TDD. You get coverage, lose proof tests work.
+30 minutes of tests after ≠ BDD. You get coverage, lose proof scenarios work.
 
 ## Common Rationalizations
 
@@ -18,9 +18,9 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 | "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
 | "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
 | "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
+| "Need to explore first" | Fine. Throw away exploration, start with BDD. |
 | "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
+| "BDD will slow me down" | BDD faster than debugging. Pragmatic = scenario-first. |
 | "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
 | "Existing code has no tests" | You're improving it. Add tests for existing code. |
 

@@ -22,7 +22,7 @@ Review before execution, batch verification, explicit blockers, evidence-driven 
 
 **Phase 3 - Batch Execution**: Execute to scope.
 - **Serial**: Standard BDD loop.
-- **Parallel**: Create Agent Team, assign tasks, wait for completion.
+- **Parallel**: Create Agent Team using Skill tool load `superpowers:agent-team-driven-development` skill, assign tasks, wait for completion.
 See `references/batch-execution-playbook.md`.
 
 **Phase 4 - Verification & Feedback**: Publish evidence, confirm with user, update tracker. Repeat Phase 3-4 until complete.

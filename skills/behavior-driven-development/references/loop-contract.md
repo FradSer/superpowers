@@ -7,17 +7,19 @@
 Input sources:
 
 - `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`
-- `bdd-scenarios.md` linked from `_index.md`
+- `bdd-specs.md` (Standard Gherkin) or `bdd-scenarios.md` (Legacy) linked from `_index.md`
 
 ## Required Scenario Grammar
 
-Each scenario in `bdd-scenarios.md` must follow:
+Scenarios must follow one of these formats:
 
-- `### SCN-001 <title>`
-- `Given: ...`
-- `When: ...`
-- `Then: ...`
-- optional `Tags: smoke, api, web`
+1. **Standard Gherkin** (`Feature` / `Scenario` / `Given` / `When` / `Then`)
+2. **Legacy Custom**:
+   - `### SCN-001 <title>`
+   - `Given: ...`
+   - `When: ...`
+   - `Then: ...`
+   - optional `Tags: smoke, api, web`
 
 If ID or any Given/When/Then line is missing, stop and request document correction.
 

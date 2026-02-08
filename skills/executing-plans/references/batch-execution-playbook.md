@@ -27,7 +27,7 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 **Option A: Serial Mode (Single Task/Subagent)**
 Use when: Tasks must be done in order or are highly coupled.
 1. Mark as in_progress.
-2. **REQUIRED:** Use `superpowers:behavior-driven-development` for implementation.
+2. **REQUIRED:** Use Skill tool load `superpowers:behavior-driven-development` skill for implementation.
 3. Verify and mark as completed.
 
 **Option B: Parallel Mode (Agent Team)**
@@ -80,7 +80,7 @@ Based on feedback:
 
 After all tasks complete and verified:
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
+- **REQUIRED SUB-SKILL:** Use Skill tool load `superpowers:finishing-a-development-branch` skill
 - Follow that skill to verify tests, present options, execute choice
 
 ## When to Stop and Ask for Help

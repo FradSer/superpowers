@@ -1,4 +1,4 @@
-# Test-Driven Development Details (6/6)
+# Behavior-Driven Development Details (6/6)
 
 | Problem | Solution |
 |---------|----------|
@@ -9,7 +9,7 @@
 
 ## Debugging Integration
 
-Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.
+Bug found? Write failing scenario reproducing it. Follow BDD cycle. Scenario proves fix and prevents regression.
 
 Never fix bugs without a test.
 
@@ -24,7 +24,7 @@ When adding mocks or test utilities, read @testing-anti-patterns.md to avoid com
 
 ```
 Production code → test exists and failed first
-Otherwise → not TDD
+Otherwise → not BDD
 ```
 
 No exceptions without your human partner's permission.

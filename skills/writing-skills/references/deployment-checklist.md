@@ -1,4 +1,4 @@
-# Skill Creation Checklist (TDD Adapted)
+# Skill Creation Checklist (BDD Adapted)
 
 **IMPORTANT: Use TodoWrite to create todos for EACH checklist item below.**
 

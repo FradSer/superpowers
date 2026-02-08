@@ -27,8 +27,8 @@ Before proceeding to Phase 2, verify:
   - Know which existing patterns to follow or adapt
   - Understand trade-offs that matter for this project
 
-## After Phase 2: Option Analysis (Primary Agent)
-Before delegating to Planning Subagent, verify:
+## After Phase 2: Option Analysis
+Before creating design document, verify:
 
 - [ ] **At least 2 options compared with trade-offs**
   - OR clear "No Alternatives" rationale provided
@@ -47,14 +47,13 @@ Before delegating to Planning Subagent, verify:
   - Use existing libraries and frameworks when possible
   - Follow project's architectural style
 
-- [ ] **All context ready to delegate**
-  - Requirements summary from Phase 1
-  - Chosen approach with rationale
-  - Alternatives considered with trade-offs
-  - Relevant files and patterns to reference
+- [ ] **Ready to create design document**
+  - Have complete context from Phase 1
+  - User has approved chosen approach
+  - Know which files and patterns to reference
 
-## After Phase 3: Detailed Design (Planning Subagent)
-Before returning to Primary Agent, verify design document content includes:
+## After Phase 3: Design & Commit
+Before marking brainstorming complete, verify design document includes:
 
 - [ ] **Overview and requirements section**
   - Brief summary of what's being built
@@ -76,6 +75,13 @@ Before returning to Primary Agent, verify design document content includes:
   - Integration points with existing code
   - File structure and organization
 
+- [ ] **BDD specifications section** **MANDATORY**
+  - At least 3 scenarios in Given-When-Then format
+  - Covers happy path, edge cases, and error conditions
+  - References specific API endpoints or methods
+  - Provides clear acceptance criteria for implementation
+  - Follows proper Gherkin syntax
+
 - [ ] **Error handling and edge cases section**
   - Expected error scenarios and handling strategy
   - Edge cases identified and mitigation
@@ -84,6 +90,7 @@ Before returning to Primary Agent, verify design document content includes:
 - [ ] **Testing strategy section**
   - Unit test approach and key test cases
   - Integration test requirements
+  - References BDD scenarios from above
   - Manual testing checklist if needed
 
 - [ ] **Open questions or risks section**
@@ -96,47 +103,47 @@ Before returning to Primary Agent, verify design document content includes:
   - Shows concrete examples and interfaces
   - Aligns with project's architectural style
 
-- [ ] **Content returned to Primary Agent**
-  - Complete document content in response
-  - No files written (Primary Agent handles that)
+**And the document has been saved and committed**:
 
-## After Phase 4: Save & Setup (Primary Agent)
-Before marking brainstorming complete, verify:
-
-- [ ] **Design document written**
-  - Saved to `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`
-  - Created `docs/plans/YYYY-MM-DD-<topic>-design/` directory if needed
+- [ ] **Design folder and main document created**
+  - Created folder `docs/plans/YYYY-MM-DD-<topic>-design/`
+  - Saved main design to `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`
   - Used correct date format (YYYY-MM-DD)
+  - Ensured `docs/plans/` directory exists
 
-- [ ] **Design document committed**
-  - Used `git add` and `git commit` with proper message
+- [ ] **Design folder committed to git**
+  - Used `git add docs/plans/YYYY-MM-DD-<topic>-design/`
+  - Used `git commit` with proper message
   - Commit message starts with `docs:` prefix
   - Subject line under 50 characters and lowercase
+  - Mentioned "BDD specifications" in commit body
   - Included Co-Authored-By line with model name
 
-- [ ] **User asked about next steps**
-  - Used AskUserQuestion to ask: "Design document saved. Ready to set up for implementation?"
-  - Confirmed file location in the question
-
-- [ ] **If requested: implementation setup started**
-  - Used superpowers:using-git-worktrees to create isolated workspace
-  - Used superpowers:writing-plans to create implementation plan
-  - Ready to begin implementation with clear task list
+- [ ] **User informed**
+  - Told user the folder and file location
+  - Confirmed git commit completed
+  - Noted that supporting files can be added to folder later
+  - Ready to proceed with implementation following BDD scenarios
 
 ## Success Indicators
 
 **High Quality Brainstorming Session**:
 - Explored codebase before asking questions
-- Asked focused questions based on exploration gaps
+- Asked focused questions one at a time based on exploration gaps
 - Proposed options grounded in existing patterns
 - Got user buy-in before creating detailed design
 - Design document is comprehensive and actionable
-- Committed design as checkpoint before implementation
+- **Design includes BDD specifications with Given-When-Then scenarios**
+- Saved design as `_index.md` inside dated folder
+- Committed design folder as checkpoint before implementation
 
 **Common Pitfalls to Avoid**:
 - Asking questions without exploring codebase first
+- Asking multiple questions at once (always ask one at a time)
 - Proposing abstract options not grounded in reality
 - Creating design without user approval of approach
 - Skipping alternatives without clear rationale
+- **Missing BDD specifications section**
+- Saving design to wrong location (should be `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`)
 - Design document missing key sections
 - Jumping to implementation without committing design
