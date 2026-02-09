@@ -1,7 +1,6 @@
 ---
 name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
-argument-hint: (no arguments - provides process guidance)
 user-invocable: true
 version: 1.0.0
 ---
@@ -16,14 +15,14 @@ Review before execution, batch verification, explicit blockers, evidence-driven 
 
 ## Workflow
 
-**Phase 1 - Plan Review**: Read plan, identify ambiguities, clarify before proceeding. See `references/blocker-and-escalation.md`.
+**Phase 1 - Plan Review**: Read plan, identify ambiguities, clarify before proceeding. See `./references/blocker-and-escalation.md`.
 
-**Phase 2 - Task Setup**: Convert to task tracker, identify batch boundaries, verify prerequisites.
+**Phase 2 - Task Setup**: Use `TaskCreate` tool to create tasks from the plan. Identify batch boundaries, verify prerequisites.
 
 **Phase 3 - Batch Execution**: Execute to scope.
 - **Serial**: Standard BDD loop.
 - **Parallel**: Create Agent Team using Skill tool load `superpowers:agent-team-driven-development` skill, assign tasks, wait for completion.
-See `references/batch-execution-playbook.md`.
+See `./references/batch-execution-playbook.md`.
 
 **Phase 4 - Verification & Feedback**: Publish evidence, confirm with user, update tracker. Repeat Phase 3-4 until complete.
 
@@ -33,5 +32,5 @@ All tasks executed and verified, evidence captured, no blockers, user approval r
 
 ## References
 
-- `references/blocker-and-escalation.md` - Guide for identifying and handling blockers
-- `references/batch-execution-playbook.md` - Pattern for batch execution
+- `./references/blocker-and-escalation.md` - Guide for identifying and handling blockers
+- `./references/batch-execution-playbook.md` - Pattern for batch execution

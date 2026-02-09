@@ -23,7 +23,7 @@ Code review is a two-way technical contract, not a social performance.
 **2. Provide Context**: Summarize what changed, why, and specific risk areas.
 **3. Dispatch Agent**: Use `code-reviewer` agent with explicit template.
 
-See `references/review-request-template.md` for the request structure.
+See `./references/review-request-template.md` for the request structure.
 
 ## Workflow: Receiving Feedback
 
@@ -32,7 +32,7 @@ See `references/review-request-template.md` for the request structure.
 **3. Respond**: Technical acknowledgment or reasoned pushback with evidence.
 **4. Implement**: One item at a time, verifying each change.
 
-See `references/feedback-triage.md` for detailed triage and response patterns.
+See `./references/feedback-triage.md` for detailed triage and response patterns.
 
 ## Quality Gate
 
@@ -41,5 +41,5 @@ See `references/feedback-triage.md` for detailed triage and response patterns.
 
 ## References
 
-- `references/review-request-template.md` - Templates for requesting reviews
-- `references/feedback-triage.md` - Classification and response workflows
+- `./references/review-request-template.md` - Templates for requesting reviews
+- `./references/feedback-triage.md` - Classification and response workflows

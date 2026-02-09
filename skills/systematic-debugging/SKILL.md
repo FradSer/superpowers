@@ -16,21 +16,21 @@ Fixes should never be proposed before root-cause evidence is gathered and analyz
 
 ## Workflow
 
-**Evidence Collection**: Gather error messages, stack traces, logs, and environment details. See `references/evidence-collection.md`.
+**Evidence Collection**: Gather error messages, stack traces, logs, and environment details. See `./references/evidence-collection.md`.
 
-**Reproduction**: Establish reliable reproduction with minimal failing condition. See `references/reproduction-techniques.md` and `references/isolation-strategies.md`.
+**Reproduction**: Establish reliable reproduction with minimal failing condition. See `./references/reproduction-techniques.md` and `./references/isolation-strategies.md`.
 
-**Fix Design**: Apply minimal correct fix targeting root cause. Verify with fresh execution evidence. See `references/fix-design-principles.md` and `references/regression-verification.md`.
+**Fix Design**: Apply minimal correct fix targeting root cause. Verify with fresh execution evidence. See `./references/fix-design-principles.md` and `./references/regression-verification.md`.
 
 ## Critical Discipline
 
-Time pressure increases guessing risk. Systematic debugging saves time by avoiding failed attempts and regressions. See `references/debugging-anti-patterns.md` for common pitfalls.
+Time pressure increases guessing risk. Systematic debugging saves time by avoiding failed attempts and regressions. See `./references/debugging-anti-patterns.md` for common pitfalls.
 
 ## References
 
-- `references/evidence-collection.md` - Evidence gathering templates and techniques
-- `references/reproduction-techniques.md` - Reliable reproduction strategies
-- `references/isolation-strategies.md` - Minimal failing condition isolation
-- `references/fix-design-principles.md` - Designing minimal correct fixes
-- `references/regression-verification.md` - Regression checking strategies
-- `references/debugging-anti-patterns.md` - Common pitfalls and shortcuts to avoid
+- `./references/evidence-collection.md` - Evidence gathering templates and techniques
+- `./references/reproduction-techniques.md` - Reliable reproduction strategies
+- `./references/isolation-strategies.md` - Minimal failing condition isolation
+- `./references/fix-design-principles.md` - Designing minimal correct fixes
+- `./references/regression-verification.md` - Regression checking strategies
+- `./references/debugging-anti-patterns.md` - Common pitfalls and shortcuts to avoid

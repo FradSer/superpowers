@@ -20,15 +20,15 @@ Skills should be loaded before taking any action when there's even a 1% chance t
 
 **Priority**: Process skills before implementation skills.
 
-**Red Flags**: "Just a simple question", "Need context first", "Let me explore first", "Doesn't need formal skill", "I remember this". See `references/skill-selection-heuristics.md`.
+**Red Flags**: "Just a simple question", "Need context first", "Let me explore first", "Doesn't need formal skill", "I remember this". See `./references/skill-selection-heuristics.md`.
 
 **Common Patterns**: Features → brainstorming. Implementation → behavior-driven-development. Bugs → systematic-debugging. Plans → writing-plans or executing-plans. Reviews → requesting/receiving-code-review.
 
 ## Flow
 
-Parse intent → Identify matches → Load skills → Announce → Execute. See `references/invocation-flow-and-red-flags.md`.
+Parse intent → Identify matches → Load skills → Announce → Execute. See `./references/invocation-flow-and-red-flags.md`.
 
 ## References
 
-- `references/skill-selection-heuristics.md` - Comprehensive skill matching patterns
-- `references/invocation-flow-and-red-flags.md` - Flow patterns and rationalization red flags
+- `./references/skill-selection-heuristics.md` - Comprehensive skill matching patterns
+- `./references/invocation-flow-and-red-flags.md` - Flow patterns and rationalization red flags

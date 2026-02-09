@@ -7,19 +7,13 @@
 Input sources:
 
 - `docs/plans/YYYY-MM-DD-<topic>-design/_index.md`
-- `bdd-specs.md` (Standard Gherkin) or `bdd-scenarios.md` (Legacy) linked from `_index.md`
+- `bdd-specs.md` (Standard Gherkin) linked from `_index.md`
 
 ## Required Scenario Grammar
 
-Scenarios must follow one of these formats:
+Scenarios must follow **Standard Gherkin** format (`Feature` / `Scenario` / `Given` / `When` / `Then`).
 
-1. **Standard Gherkin** (`Feature` / `Scenario` / `Given` / `When` / `Then`)
-2. **Legacy Custom**:
-   - `### SCN-001 <title>`
-   - `Given: ...`
-   - `When: ...`
-   - `Then: ...`
-   - optional `Tags: smoke, api, web`
+For full syntax reference, see [Cucumber Gherkin Reference](cucumber-gherkin-reference.md).
 
 If ID or any Given/When/Then line is missing, stop and request document correction.
 
@@ -58,6 +52,3 @@ Default mode returns conversational status only:
 
 Do not generate `.feature`, `summary.json`, `events.jsonl`, or `manual_decision/*.md` by default.
 
-## Legacy Scripts
-
-`scripts/orchestrate.sh` and `scripts/tdd_loop_controller.py` are legacy compatibility paths for external harnesses and are not the primary workflow.

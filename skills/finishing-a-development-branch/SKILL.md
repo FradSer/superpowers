@@ -16,16 +16,16 @@ No branch operation should occur before fresh verification and explicit branch-t
 
 ## Key Requirements
 
-**Verification Gate**: Fresh verification required before any integration. All checks must pass. See `references/verification-gate.md`.
+**Verification Gate**: Fresh verification required before any integration. All checks must pass. See `./references/verification-gate.md`.
 
-**Integration Options**: Choose from merge locally, push + PR, keep as-is, or discard. See `references/integration-options.md`.
+**Integration Options**: Choose from merge locally, push + PR, keep as-is, or discard. See `./references/integration-options.md`.
 
 **Base Branch Confirmation**: Never assume target branch. Explicitly confirm with user when ambiguous.
 
-**Cleanup and Recovery**: Destructive operations require confirmation. Document rollback procedures. See `references/cleanup-and-recovery.md`.
+**Cleanup and Recovery**: Destructive operations require confirmation. Document rollback procedures. See `./references/cleanup-and-recovery.md`.
 
 ## References
 
-- `references/verification-gate.md` - Verification requirements before integration
-- `references/integration-options.md` - Option selection criteria and execution
-- `references/cleanup-and-recovery.md` - Cleanup procedures and rollback strategies
+- `./references/verification-gate.md` - Verification requirements before integration
+- `./references/integration-options.md` - Option selection criteria and execution
+- `./references/cleanup-and-recovery.md` - Cleanup procedures and rollback strategies
