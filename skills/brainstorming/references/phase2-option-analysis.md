@@ -56,10 +56,6 @@ Alternative approach would be synchronous payment processing (direct API calls i
 order controller). This is simpler to understand but creates tight coupling - if the
 payment service is down, orders can't be created at all. This is how the legacy
 /checkout endpoint works, and we've had reliability issues with it.
-
-Another option is using a job queue (Sidekiq/Celery), which gives us retry logic out
-of the box. But we don't currently use background jobs anywhere, so this adds a new
-infrastructure dependency just for this feature.
 ```
 
 ### 4. Respect Existing Architecture
@@ -83,6 +79,7 @@ Use `AskUserQuestion` to confirm the chosen approach:
 - **ALWAYS call `AskUserQuestion` with exactly 1 question** (never use 2-4 questions)
 - If you need to clarify multiple aspects, ask them sequentially
 - Wait for each answer before proceeding to the next question
+- Continue asking single questions until the approach is fully clear and agreed upon
 
 **Simple approval**:
 
@@ -100,6 +97,25 @@ approach is simpler but less robust. Which trade-off matters more for this featu
 ## Key Principle
 
 **Options should be grounded in codebase reality, not abstract possibilities.** Don't propose approaches that would require major architectural changes unless the requirements demand it.
+
+
+## Common Trade-Off Patterns
+
+**Time vs. Space (Complexity)**
+*   **A: Pre-calculation**: Store results in DB. Pros: Fast reads. Cons: Slow writes, data sync issues.
+*   **B: On-demand**: Calculate when requested. Pros: Always fresh data, simpler writes. Cons: Slower reads, CPU load.
+
+**Consistency vs. Availability (CAP Theorem)**
+*   **A: Strong Consistency**: Use transactions (SQL). Pros: Data always correct. Cons: Potential locking, slower.
+*   **B: Eventual Consistency**: Use message queues. Pros: High system availability, fast user response. Cons: UI might show stale data briefly.
+
+**Clean Code vs. Performance**
+*   **A: Abstraction**: Use ORM/Layers. Pros: Maintainable, testable. Cons: Runtime overhead.
+*   **B: Raw Optimization**: Raw SQL/Inlining. Pros: Max speed. Cons: Hard to read/change.
+
+**Dependency Management**
+*   **A: Existing Library**: Use what's in `package.json`. Pros: No new bloat. Cons: Might be older version/missing features.
+*   **B: New Library**: Add purpose-built tool. Pros: Solves problem exactly. Cons: Increases bundle size, security surface.
 
 ## Output for Phase 3
 

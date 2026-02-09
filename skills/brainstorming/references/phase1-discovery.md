@@ -2,7 +2,7 @@
 
 ## Goal
 
-Understand what you're building by exploring the current project state and clarifying requirements.
+Understand what's being built by exploring the current project state and clarifying requirements.
 
 ## Primary Agent Actions
 
@@ -48,7 +48,7 @@ Use `AskUserQuestion` tool strategically:
 
 **Question Style Preferences**:
 
-- **Prefer multiple choice** with 2-4 options when possible
+- **Prefer multiple choice** with 2-4 options (A, B, C) when possible to reduce cognitive load
 - Use open-ended only when exploring truly unknown territory
 - Frame questions based on what you learned from codebase exploration
 
@@ -95,3 +95,26 @@ Clear understanding of requirements including:
 - Success criteria and non-functional requirements
 - Relevant existing patterns and files to reference
 - Foundation for analyzing implementation options
+
+## Effective Question Templates
+
+**To clarify scope:**
+> "I see the current user model has `email` and `phone`. Should the new notification system support SMS (using `phone`) or just Email?"
+> (Good because it links to specific existing fields)
+
+**To clarify edge cases:**
+> "The current `calculateTotal` function throws an error for negative inputs. Should this new API return a 400 Bad Request in that case, or clamp the value to zero?"
+
+## Questions to Avoid (Anti-Patterns)
+
+**The "Lazy" Question:**
+> "How should I implement this?"
+> *Why it's bad*: You should explore the codebase and propose options, not ask for implementation details.
+
+**The "Bundled" Question:**
+> "Should I use Redis? Also what about the schema? And do we need a migration?"
+> *Why it's bad*: Overwhelms the user. Ask about the storage choice first.
+
+**The "Abstract" Question:**
+> "What are the non-functional requirements?"
+> *Why it's bad*: Too vague. Ask specific questions like "Do we need to support more than 1000 requests/second based on the current load balancer config?"
