@@ -1,9 +1,9 @@
 ---
 name: code-review-guidance
-description: Use when requesting or processing code reviews - encompasses defining clear review scope (Requesting) and rigorously triaging feedback (Receiving)
+description: Use when you need to request a formal code review or process feedback from one - defines standards for clear review requests and rigorous feedback triage
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Code Review Guidance
@@ -12,7 +12,7 @@ This skill provides unified guidance for the entire code review lifecycle: from 
 
 ## Core Concept
 
-Code review is a two-way technical contract, not a social performance.
+Use this skill when preparing a PR or addressing review comments. Code review is a two-way technical contract, not a social performance.
 
 - **Requesting**: Define clear boundaries (BASE..HEAD) and risk areas. Context-free requests waste time.
 - **Receiving**: Verify technically before accepting. No performative agreement. Severity matters.

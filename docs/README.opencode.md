@@ -239,7 +239,7 @@ OpenCode discovers skills from these locations:
 
 ### Automatic Context Injection
 
-The plugin automatically injects superpowers context via the `experimental.chat.system.transform` hook. This adds the "using-superpowers" skill content to the system prompt on every request.
+The plugin automatically injects superpowers context via the `experimental.chat.system.transform` hook.
 
 ### Native Skills Integration
 
@@ -262,7 +262,7 @@ Skills written for Claude Code are automatically adapted for OpenCode. The boots
 
 **Components:**
 - `experimental.chat.system.transform` hook for bootstrap injection
-- Reads and injects the "using-superpowers" skill content
+
 
 ### Skills
 
@@ -302,8 +302,7 @@ If you see `Cannot find module` errors on Windows:
 
 ### Bootstrap not appearing
 
-1. Verify using-superpowers skill exists: `ls ~/.config/opencode/superpowers/skills/using-superpowers/SKILL.md`
-2. Check OpenCode version supports `experimental.chat.system.transform` hook
+1. Check OpenCode version supports `experimental.chat.system.transform` hook
 3. Restart OpenCode after plugin changes
 
 ## Getting Help

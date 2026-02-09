@@ -1,9 +1,9 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: Use when you believe a task is done - enforces running fresh verification commands and capturing evidence before marking work as complete
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Verification Before Completion
@@ -12,7 +12,7 @@ This skill provides guidance on proving claims with fresh command evidence befor
 
 ## Core Concept
 
-Evidence before assertions. Before any completion claim, fresh commands must be run that directly prove the claim.
+Use this skill to validate completion. Evidence before assertions. Before any completion claim, fresh commands must be run that directly prove the claim.
 
 ## Requirements
 

@@ -1,9 +1,9 @@
 ---
 name: finishing-a-development-branch
-description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
+description: Use when you have completed all implementation and verification tasks - guides valid completion by enforcing final verification before merging, creating a PR, or cleaning up
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Finishing a Development Branch
@@ -12,7 +12,7 @@ This skill provides guidance on closing out completed work by choosing and execu
 
 ## Core Concept
 
-No branch operation should occur before fresh verification and explicit branch-target confirmation. Integration decisions require complete context about verification status and target branch.
+Use this skill when you believe the work is done. No branch operation should occur before fresh verification and explicit branch-target confirmation.
 
 ## Key Requirements
 

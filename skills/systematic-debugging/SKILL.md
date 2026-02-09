@@ -1,9 +1,9 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: Use when encountering any bug, test failure, or unexpected error - guides you through evidence collection, reproduction, and root cause analysis before attempting a fix
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Systematic Debugging
@@ -12,7 +12,7 @@ This skill provides guidance on debugging by proving root cause first, then appl
 
 ## Core Concept
 
-Fixes should never be proposed before root-cause evidence is gathered and analyzed. Guessing at fixes wastes time and creates regressions.
+Use this skill immediately upon encountering an issue. Fixes should never be proposed before root-cause evidence is gathered and analyzed. Guessing at fixes wastes time and creates regressions.
 
 ## Workflow
 

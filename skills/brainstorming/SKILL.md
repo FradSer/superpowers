@@ -1,12 +1,7 @@
 ---
 name: brainstorming
-description: |
-  A structured workflow to turn ideas into implementation-ready designs.
-  Phases:
-  1. Discovery: Explore codebase and clarify requirements.
-  2. Option Analysis: Evaluate approaches and get user approval.
-  3. Design & Commit: Create design document and commit to git.
-  MANDATORY: Use this skill before creating features or modifying complex behavior.
+description: Use when you have a new idea, feature request, or ambiguous requirement - clarifies needs, explores options, and produces a solid design document and BDD specs before implementation starts
+argument-hint: (no arguments - provides process guidance)
 user-invocable: true
 ---
 

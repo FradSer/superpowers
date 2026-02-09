@@ -1,13 +1,15 @@
 ---
 name: executing-plans
-description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
+description: Use when you have a completed implementation plan (plan.md) and are ready to execute the tasks defined therein - supports both serial and parallel (Agent Team) execution
 user-invocable: true
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Executing Plans
 
-Execute written implementation plans in predictable batches. Supports **Serial Execution** (single subagent) or **Parallel Execution** (Agent Teams).
+## Core Concept
+
+Use this skill to execute written implementation plans in predictable batches. Supports **Serial Execution** (single subagent) or **Parallel Execution** (Agent Teams).
 
 ## Core Principles
 

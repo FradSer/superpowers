@@ -1,16 +1,16 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when you have a design (from brainstorming) and need to break it down into a detailed, step-by-step implementation plan with verification steps for each task
 argument-hint: (no arguments - provides process guidance)
 user-invocable: true
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Writing Plans
 
-Create executable implementation plans that reduce ambiguity for whoever executes them.
+## Core Concept
 
-## Core Principles
+Use this skill to create executable implementation plans that reduce ambiguity for whoever executes them.
 
 Explicit over implicit, granular tasks, verification-driven, context independence.
 **MANDATORY**: Tasks must be driven by BDD scenarios (Given/When/Then).

@@ -1,8 +1,8 @@
 ---
 name: agent-team-driven-development
-description: Orchestrate development using Claude Code Agent Teams (requires CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+description: Use when you need to orchestrate complex, multi-step development tasks that can be parallelized across multiple specialized agents (e.g., Implementer, Reviewer, Architect) - best for large features or refactors where dividing work speeds up execution
 user-invocable: false
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Agent Team Driven Development
@@ -10,7 +10,8 @@ version: 2.0.0
 This skill provides guidance on orchestrating development tasks using Claude Code's native **Agent Teams** feature.
 
 ## Core Concept
-Instead of manually simulating subagents, you leverage the `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` feature to spawn real, parallel agent instances. You act as the **Team Lead**, coordinating specialized teammates.
+
+Use this skill to spawn real, parallel agent instances for complex work. Instead of manually simulating subagents, you leverage the `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` feature to act as the **Team Lead**, coordinating specialized teammates. This is ideal for tasks that benefit from separation of concerns (e.g., implementation vs. review) or parallel execution.
 
 ## Roles
 

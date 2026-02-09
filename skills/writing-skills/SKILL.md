@@ -1,9 +1,9 @@
 ---
 name: writing-skills
-description: Use when creating new skills, editing existing skills, or verifying skills work before deployment
+description: Use when you need to create a new skill or modify an existing one - enforces a test-first approach to skill development to ensure reliability
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Writing Skills
@@ -12,7 +12,7 @@ This skill provides guidance on authoring and refining skills with a test-first 
 
 ## Core Concept
 
-**MANDATORY**: Test-First (Red-Green) workflow. You must demonstrate the model failing the task *without* the skill (Red) before writing or editing the skill.
+Use this skill whenever you edit or create a skill. **MANDATORY**: Test-First (Red-Green) workflow. You must demonstrate the model failing the task *without* the skill (Red) before writing or editing the skill.
 Baseline failure → minimal guidance → verification → loophole hardening. Skills should be tested against scenarios to prove they change behavior.
 
 ## Workflow

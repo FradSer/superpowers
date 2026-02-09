@@ -1,9 +1,9 @@
 ---
 name: behavior-driven-development
-description: Use when implementing features or bugfixes from behavior-focused requirements (Given/When/Then scenarios in design docs), before writing implementation code
+description: Use when implementing features or bugfixes - enforces the Red-Green-Refactor cycle using BDD scenarios (Given/When/Then) to drive implementation; use this for the actual coding phase
 argument-hint: (no arguments - provides reference guidance)
 user-invocable: false
-version: 2.1.0
+version: 2.2.0
 ---
 
 # Behavior-Driven Development
@@ -12,7 +12,7 @@ This skill runs BDD in the active agent conversation: parse behavior scenarios f
 
 ## Core Concept
 
-Behavior scenarios are executable specifications. BDD implements them through RED -> GREEN -> REFACTOR.
+Use this skill during the implementation phase of any feature or bugfix. Behavior scenarios are executable specifications. BDD implements them through RED -> GREEN -> REFACTOR.
 
 ## Required Inputs
 
