@@ -2,10 +2,17 @@
 
 ## BDD Granularity
 
-**1 Task = 1 BDD Scenario.**
+**Preferred: 1 Scenario = 2 Tasks (Red + Green).**
+
+To strictly enforce BDD, split work into:
+1. **Task A (Red)**: Create failing test for Scenario X.
+2. **Task B (Green)**: Implement Scenario X to pass test.
+
+**Alternative (Single Task)**:
+If using a single task, the steps MUST be strictly ordered:
+1. Create Test -> 2. Verify Fail (Red) -> 3. Implement -> 4. Verify Pass (Green).
 
 Do not group multiple scenarios into one task unless they are trivial variations.
-Do not split a single scenario across multiple tasks unless it involves distinct architectural layers that must be implemented sequentially (e.g., "Backend for Scenario X", "Frontend for Scenario X").
 
 ## Verification Strategy
 
@@ -31,19 +38,25 @@ Every task in the plan must result in:
 2. Implementation code (in `src/`).
 3. A green test run.
 
-## Example Task Description
+## Example Task Sequence (Red -> Green)
 
-> **Task: Implement 'User logs in successfully' Scenario**
+> **Task 01: [TEST] 'User logs in successfully' (RED)**
 >
 > **Spec:** `bdd-specs.md` -> Scenario: "User logs in successfully"
 >
 > **Steps:**
-> 1. **Test**: Create `tests/features/login_test.py`.
->    - Implement test mapping to scenario steps (Given user exists, When logs in, Then success).
-> 2. **Red**: Run test -> FAIL.
-> 3. **Impl**: Update `auth_service.py`.
->    - Implement `login` method to validate credentials and return token.
-> 4. **Green**: Run test -> PASS.
+> 1. Create `tests/features/login_test.py`.
+> 2. Implement test case mapping to Given/When/Then.
+> 3. **Verify**: Run `npm test tests/features/login_test.py` -> MUST FAIL (Red).
+>
+> **Task 02: [IMPL] 'User logs in successfully' (GREEN)**
+>
+> **Spec:** `bdd-specs.md` -> Scenario: "User logs in successfully"
+>
+> **Steps:**
+> 1. Update `src/auth_service.ts`.
+> 2. Implement `login` method to validate credentials and return token.
+> 3. **Verify**: Run `npm test tests/features/login_test.py` -> MUST PASS (Green).
 
 ## Execution Handoff
 

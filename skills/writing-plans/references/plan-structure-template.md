@@ -17,20 +17,13 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to folder:** `docs/plans/YYYY-MM-DD-<feature-name>-plan/`
 
-## Bite-Sized Task Granularity
+## Folder Structure
 
-**Each task corresponds to implementing one BDD Scenario:**
-- Step 1: Ensure Scenario exists in `bdd-specs.md`
-- Step 2: Implement the Test Case (translating Given/When/Then to code)
-- Step 3: Run Test (`RED`)
-- Step 4: Implement Logic (`GREEN`)
-- Step 5: Verify (Run tests) & Refactor
+The plan must be split into multiple files:
 
-## Plan Document Header
-
-**Every plan MUST start with this header:**
+### 1. `_index.md` (Plan Overview)
 
 ```markdown
 # [Feature Name] Implementation Plan
@@ -43,12 +36,35 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Tech Stack:** [Key technologies/libraries]
 
+**Design Support:**
+- [BDD Specs](../YYYY-MM-DD-<topic>-design/bdd-specs.md)
+- [Architecture](../YYYY-MM-DD-<topic>-design/architecture.md)
+
+**Execution Plan:**
+- [Phase 1: Setup](tasks-phase1-setup.md)
+- [Phase 2: Core Logic](tasks-phase2-core.md)
+- ...
+
 ---
+
+## Execution Handoff
+
+**"Plan complete and saved to `docs/plans/YYYY-MM-DD-<topic>-plan/`. Execution options:**
+
+**1. Orchestrated Execution (Recommended)** - Use Skill tool load `superpowers:executing-plans` skill.
+
+**2. Direct Agent Team** - Use Skill tool load `superpowers:agent-team-driven-development` skill.
+
+**3. BDD-Focused Execution** - Use Skill tool load `superpowers:behavior-driven-development` skill for specific scenarios.
 ```
+
+### 2. Task Files (e.g., `tasks-phase1.md`)
+
+```markdown
+# Phase 1 Execution Tasks
 
 ## Task Structure
 
-```markdown
 ### Task N: [Scenario Name]
 
 **Files:**
