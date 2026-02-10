@@ -25,16 +25,7 @@ else
 fi
 echo ""
 
-# Test: use systematic-debugging
-echo ">>> Test 2: use-systematic-debugging"
-if "$SCRIPT_DIR/run-test.sh" "systematic-debugging" "$PROMPTS_DIR/use-systematic-debugging.txt"; then
-    PASSED=$((PASSED + 1))
-    RESULTS="$RESULTS\nPASS: use-systematic-debugging"
-else
-    FAILED=$((FAILED + 1))
-    RESULTS="$RESULTS\nFAIL: use-systematic-debugging"
-fi
-echo ""
+
 
 # Test: please use brainstorming
 echo ">>> Test 3: please-use-brainstorming"

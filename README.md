@@ -126,8 +126,8 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 - **behavior-driven-development** - RED-GREEN-REFACTOR cycle (includes testing anti-patterns reference)
 
 **Debugging**
-- **systematic-debugging** - 4-phase root cause process (includes root-cause-tracing, defense-in-depth, condition-based-waiting techniques)
-- **verification-before-completion** - Ensure it's actually fixed
+
+
 
 **Collaboration** 
 - **brainstorming** - Socratic design refinement
@@ -138,7 +138,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 - **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
 
 **Meta**
-- **writing-skills** - Create new skills following best practices (includes testing methodology)
+
 
 
 ## Philosophy
@@ -154,12 +154,7 @@ Read more: [Superpowers for Claude Code](https://blog.fsck.com/2025/10/09/superp
 
 Skills live directly in this repository. To contribute:
 
-1. Fork the repository
-2. Create a branch for your skill
-3. Follow the `writing-skills` skill for creating and testing new skills
-4. Submit a PR
 
-See `skills/writing-skills/SKILL.md` for the complete guide.
 
 ## Updating
 
