@@ -18,6 +18,7 @@ Review before execution, batch verification, explicit blockers, evidence-driven 
 ## Workflow
 
 **Phase 1 - Plan Review**: Read plan, identify ambiguities, clarify before proceeding. See `./references/blocker-and-escalation.md`.
+**REQUIRED**: Use the Plan agent (EnterPlanMode) to validate the plan and execution strategy before creating any tasks.
 
 **Phase 2 - Task Setup**: Use `TaskCreate` tool to create tasks from the plan. Identify batch boundaries, verify prerequisites.
 

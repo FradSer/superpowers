@@ -19,8 +19,9 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 ### Step 1: Load and Review Plan
 1. Read plan file
 2. Review critically - identify any questions or concerns about the plan
-3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create TodoWrite and proceed
+3. **REQUIRED**: Use the Plan agent (EnterPlanMode) to validate the plan and execution strategy.
+4. If concerns: Raise them with your human partner before starting
+5. If no concerns: Create TodoWrite and proceed
 
 ### Step 2: Configure Execution Mode
 
@@ -79,9 +80,9 @@ Based on feedback:
 ### Step 5: Complete Development
 
 After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use Skill tool load `superpowers:finishing-a-development-branch` skill
-- Follow that skill to verify tests, present options, execute choice
+- Verify all tasks are marked as completed
+- Run full test suite to ensure no regressions
+- Report completion and test results to the user
 
 ## When to Stop and Ask for Help
 

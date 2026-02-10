@@ -112,9 +112,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 
 4. **behavior-driven-development** - Activates during implementation. Enforces RED-GREEN-REFACTOR: write failing test, watch it fail, write minimal code, watch it pass, commit. Deletes code written before tests.
 
-5. **code-review-guidance** - Activates between tasks. Unified guidance for requesting focused reviews and rigorously processing feedback.
-
-6. **finishing-a-development-branch** - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
+5. **finishing-a-development-branch** - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
 
 **The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
 
@@ -134,7 +132,6 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 - **writing-plans** - Detailed implementation plans
 - **executing-plans** - Batch execution with checkpoints
 - **executing-plans** - Batch execution with checkpoints
-- **code-review-guidance** - Unified review request and response guidance
 - **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
 
 **Meta**

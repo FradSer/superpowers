@@ -24,6 +24,8 @@ See `./references/core-principles.md` for detailed explanations.
 **Phase 1**: Explore → Ask → Understand
 **Phase 2**: Research → Propose → Get approval
 **Phase 3**: Design with BDD → Save → Commit
+**Phase 4**: Plan
+
 
 ## Phase 1: Discovery
 
@@ -114,11 +116,21 @@ See `./references/phase2-option-analysis.md` for option comparison and presentat
 - Design folder created and committed
 - **Ready for `writing-plans`**: `bdd-specs.md` is now the contract for task planning
 - **Ready for `behavior-driven-development`**: Specs are compatible with BDD skill execution
-- Ready for implementation
 
 See `./references/phase3-design-commit.md` for design structure, BDD format, file operations, and git commit patterns.
 
 See `./references/exit-criteria.md` for complete checklists and success indicators.
+
+## Phase 4: Transition to Implementation
+
+**Goal**: Prepare the environment and plan for coding.
+
+**Actions**:
+1. **Ask**: "Ready to set up for implementation?"
+2. **Invoke `superpowers:writing-plans`** using the Skill tool.
+   - **REQUIRED**: Create a detailed implementation plan.
+   - **PROHIBITED**: Do NOT use platform planning features (e.g., EnterPlanMode, plan mode).
+   - **PROHIBITED**: Do NOT start implementing directly - the writing-plans skill comes first.
 
 ## References
 
