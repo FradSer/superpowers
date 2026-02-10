@@ -44,6 +44,7 @@ EOF
 
 # Create a project directory for project-level skill tests
 mkdir -p "$TEST_HOME/test-project/.opencode/skills/project-test"
+(cd "$TEST_HOME/test-project" && git init --quiet && git config user.email "test@test.com" && git config user.name "Test" && touch opencode.toml)
 cat > "$TEST_HOME/test-project/.opencode/skills/project-test/SKILL.md" <<'EOF'
 ---
 name: project-test
